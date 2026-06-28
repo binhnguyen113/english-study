@@ -228,6 +228,11 @@
                 <option value="Mixed">Xen lẫn (Random)</option>
             </select>
         </div>
+        <div class="controls">
+            <label for="topicSelect">Chủ đề</label>
+            <select id="topicSelect"></select>
+            <div id="topicInfo" style="font-size:.9rem; color:#4d698b;"></div>
+        </div>
         <div class="word-row">
             <div class="word-block">
                 <div class="word" id="wordDisplay"></div>
@@ -400,12 +405,27 @@
 
 
         ];
-        let shuffled = [...words].sort(() => Math.random() - 0.5);
+        const topicDefinitions = [
+            { value: "all", label: "Ôn tất cả", start: 0, count: words.length },
+            { value: "contract", label: "Contract (Hợp đồng kinh doanh)", start: 0, count: 12 },
+            { value: "marketing", label: "Marketing (Tiếp thị)", start: 12, count: 12 },
+            { value: "warranties", label: "Warranties (Bảo hiểm)", start: 24, count: 12 },
+            { value: "businessPlanning", label: "Business planning (Kinh doanh)", start: 36, count: 12 },
+            { value: "conferences", label: "Conferences (Hội thảo)", start: 48, count: 12 },
+            { value: "computers", label: "Computers (Máy tính)", start: 60, count: 12 },
+            { value: "officeTechnology", label: "Office technology (Công nghệ văn phòng)", start: 72, count: 12 },
+            { value: "officeProcedures", label: "Office procedures (Quy trình văn phòng)", start: 84, count: 12 },
+            { value: "electronics", label: "Electronics (Điện tử)", start: 96, count: 12 },
+            { value: "jobAdvertising", label: "Job advertising (Tuyển dụng)", start: 108, count: 12 }
+        ];
+
+        let shuffled = [];
         let index = 0;
         let correct = 0;
-        let mode = Math.random() > 0.5 ? "EtoV" : "VtoE";
+        let mode = "EtoV";
         let wrongWords = [];
         let reviewMode = false;
+        let selectedTopic = "all";
 
         const wordDisplay = document.getElementById("wordDisplay");
         const resultDiv = document.getElementById("result");
@@ -414,21 +434,46 @@
         const progress = document.getElementById("progress");
         const button = document.getElementById("submitBtn");
         const modeSelect = document.getElementById('modeSelect');
+        const topicSelect = document.getElementById('topicSelect');
+        const topicInfo = document.getElementById('topicInfo');
 
-        // When the user changes the mode, reset the session and start over
-        modeSelect.addEventListener('change', () => {
-            // reshuffle and reset progress
-            shuffled = [...words].sort(() => Math.random() - 0.5);
+        function getTopicWords(value) {
+            const def = topicDefinitions.find(item => item.value === value);
+            if (!def || value === 'all') return [...words];
+            return words.slice(def.start, def.start + def.count);
+        }
+
+        function populateTopicSelect() {
+            topicSelect.innerHTML = topicDefinitions.map(item => `<option value="${item.value}">${item.label}</option>`).join('');
+            topicSelect.value = selectedTopic;
+            topicInfo.textContent = selectedTopic === 'all'
+                ? 'Đang ôn tất cả từ vựng.'
+                : `Đang ôn chủ đề: ${topicDefinitions.find(item => item.value === selectedTopic)?.label || ''}`;
+        }
+
+        function startSession() {
+            const topicWords = getTopicWords(selectedTopic);
+            shuffled = [...topicWords].sort(() => Math.random() - 0.5);
             index = 0;
             correct = 0;
             wrongWords = [];
             reviewMode = false;
-            // ensure inputs/buttons are visible again
             input.style.display = '';
             button.style.display = '';
             resultDiv.textContent = '';
-            // brief delay so UI updates before showing first question
-            setTimeout(newQuestion, 120);
+            populateTopicSelect();
+            newQuestion();
+        }
+
+        populateTopicSelect();
+
+        modeSelect.addEventListener('change', () => {
+            startSession();
+        });
+
+        topicSelect.addEventListener('change', () => {
+            selectedTopic = topicSelect.value;
+            startSession();
         });
 
         const ttsBtn = document.getElementById('ttsBtn');
@@ -603,7 +648,7 @@
             if (e.key === "Enter") checkAnswer();
         });
 
-        newQuestion();
+        startSession();
     </script>
 
 </body>
