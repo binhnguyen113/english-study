@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện phản xạ từ vựng Anh - Việt</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            min-height: 100vh;
+            font: 16px/1.5 system-ui, Arial, sans-serif;
+            color: #0f3d7a;
+            background: #eaf3ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px
+        }
+
+        .container {
+            width: min(100%, 540px);
+            background: #fff;
+            border-radius: 24px;
+            padding: 18px;
+            box-shadow: 0 18px 40px rgba(15, 45, 100, .08);
+            display: grid;
+            gap: 14px
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.35rem;
+            text-align: center
+        }
+
+        #questionType {
+            margin: 0;
+            color: #4d698b;
+            font-size: .95rem;
+            font-weight: 600;
+            text-align: center
+        }
+
+        .word-block {
+            padding: 18px 16px;
+            border-radius: 22px;
+            background: #f7fbff;
+            border: 1px solid rgba(15, 50, 100, .1);
+            text-align: center
+        }
+
+        .word {
+            margin: 0;
+            font-size: 1.9rem;
+            font-weight: 700;
+            word-break: break-word
+        }
+
+        #pronunciation {
+            display: inline-flex;
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(15, 70, 140, .1);
+            color: #1e4975;
+            font-size: .92rem
+        }
+
+        .controls,
+        .tts-actions {
+            display: grid;
+            gap: 12px
+        }
+
+        select,
+        input[type=text],
+        button#submitBtn,
+        .tts-btn {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(15, 50, 100, .14);
+            background: #fff;
+            color: inherit;
+            font: inherit
+        }
+
+        select {
+            appearance: none;
+            cursor: pointer
+        }
+
+        select:focus,
+        input[type=text]:focus,
+        button:focus,
+        .tts-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(15, 50, 100, .08)
+        }
+
+        input[type=text] {
+            min-height: 52px
+        }
+
+        button#submitBtn {
+            border: none;
+            background: #0f3d7a;
+            color: #fff;
+            font-weight: 700;
+            box-shadow: 0 14px 28px rgba(15, 45, 100, .18)
+        }
+
+        .tts-actions {
+            padding: 14px;
+            background: #f4f8ff;
+            border: 1px solid rgba(15, 50, 100, .08);
+            border-radius: 20px
+        }
+
+        .tts-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #eef5ff;
+            font-weight: 700;
+            border: none;
+            box-shadow: 0 10px 24px rgba(15, 45, 100, .08)
+        }
+
+        .tts-btn .icon {
+            font-size: 1.1rem
+        }
+
+        label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: .95rem;
+            cursor: pointer
+        }
+
+        input[type=checkbox] {
+            width: 18px;
+            height: 18px;
+            accent-color: #0f3d7a
+        }
+
+        .audio-rate {
+            display: grid;
+            gap: 8px
+        }
+
+        #rateRange {
+            width: 100%;
+            accent-color: #0f3d7a
+        }
+
+        #rateValue {
+            text-align: right;
+            color: #0f3d7a;
+            font-weight: 700
+        }
+
+        .result {
+            min-height: 56px;
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: #f4f8ff;
+            color: #0f3d7a;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            font-size: .96rem;
+            font-weight: 600
+        }
+
+        .correct {
+            color: #1c7a34
+        }
+
+        .wrong {
+            color: #bf3d45
+        }
+
+        #progress {
+            text-align: center;
+            color: #5d7c98;
+            font-size: .9rem
+        }
+
+        @media(max-width:420px) {
+            .container {
+                padding: 16px
+            }
+
+            .word {
+                font-size: 1.7rem
+            }
+
+            .tts-actions {
+                padding: 12px
+            }
+
+            #rateValue {
+                text-align: left
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Luyện phản xạ từ vựng</h1>
+        <p id="questionType">Dịch nghĩa của:</p>
+        <div class="controls">
+            <label for="modeSelect">Chế độ</label>
+            <select id="modeSelect">
+                <option value="EtoV">Tiếng Anh → Tiếng Việt</option>
+                <option value="VtoE">Tiếng Việt → Tiếng Anh</option>
+                <option value="Mixed">Xen lẫn (Random)</option>
+            </select>
+        </div>
+        <div class="word-row">
+            <div class="word-block">
+                <div class="word" id="wordDisplay"></div>
+                <div id="pronunciation"></div>
+            </div>
+            <div class="tts-actions" aria-hidden="false">
+                <button class="tts-btn" id="ttsBtn" title="Nghe phát âm"><span
+                        class="icon">🔊</span><span>Nghe</span></button>
+                <label>
+                    <input type="checkbox" id="autoplayChk"> <span>Tự động đọc</span>
+                </label>
+                <div class="audio-rate">
+                    <input id="rateRange" type="range" min="0.6" max="1.6" step="0.1" value="1" aria-label="Tốc độ đọc">
+                    <div id="rateValue">1.0</div>
+                </div>
+            </div>
+        </div>
+        <input type="text" id="answerInput" placeholder="Nhập câu trả lời...">
+        <button id="submitBtn">Kiểm tra</button>
+        <div class="result" id="result"></div>
+        <p id="progress"></p>
+    </div>
+
+    <script>
+        const words = [
+            // //================================== INFORMATION TECHNOLOGY (CỘNG NGHỆ THÔNG TIN) ================================
+
+            // nhóm 1: nền tảng CNTT – dễ hiểu, hay gặp
+            { english: "algorithm", vietnamese: ["thuật toán"], pron: "/ˈælɡərɪðəm/" },
+            { english: "application", vietnamese: ["ứng dụng"], pron: "/ˌæplɪˈkeɪʃən/" },
+            { english: "data", vietnamese: ["dữ liệu"], pron: "/ˈdeɪtə/" },
+            { english: "database", vietnamese: ["cơ sở dữ liệu"], pron: "/ˈdeɪtəˌbeɪs/" },
+            { english: "digital", vietnamese: ["kỹ thuật số"], pron: "/ˈdɪdʒɪtəl/" },
+            { english: "file", vietnamese: ["tệp tin"], pron: "/faɪl/" },
+            { english: "interface", vietnamese: ["giao diện"], pron: "/ˈɪntərfeɪs/" },
+
+            // nhóm 2: mạng – các từ dùng khi làm web, server
+            { english: "bandwidth", vietnamese: ["băng thông"], pron: "/ˈbændwɪθ/" },
+            { english: "browser", vietnamese: ["trình duyệt"], pron: "/ˈbraʊzər/" },
+            { english: "cloud computing", vietnamese: ["điện toán đám mây"], pron: "/klaʊd kəmˈpjuːtɪŋ/" },
+            { english: ["domain name system", " DNS"], vietnamese: ["hệ thống phân giải tên miền"], pron: "/ˌdiː.enˈes/" },
+            { english: "gateway", vietnamese: ["cổng mạng"], pron: "/ˈɡeɪtweɪ/" },
+            { english: "network", vietnamese: ["mạng"], pron: "/ˈnetwɜːrk/" },
+            { english: "router", vietnamese: ["bộ định tuyến"], pron: "/ˈruːtər/" },
+
+            // nhóm 3: bảo mật – rất quan trọng
+            { english: "authentication", vietnamese: ["xác thực"], pron: "/ɔːˌθentɪˈkeɪʃən/" },
+            { english: "cybersecurity", vietnamese: ["an ninh mạng"], pron: "/ˌsaɪbərsɪˈkjʊrəti/" },
+            { english: "encryption", vietnamese: ["mã hóa"], pron: "/ɪnˈkrɪpʃən/" },
+            { english: "firewall", vietnamese: ["tường lửa"], pron: "/ˈfaɪərwɔːl/" },
+            { english: "hacker", vietnamese: ["tin tặc"], pron: "/ˈhækər/" },
+            { english: "malware", vietnamese: ["phần mềm độc hại"], pron: "/ˈmælˌwɛər/" },
+            { english: "vulnerability", vietnamese: ["lỗ hổng bảo mật"], pron: "/ˌvʌlnərəˈbɪləti/" },
+
+            // nhóm 4: phần cứng – liên quan thiết bị
+            { english: "biometrics", vietnamese: ["sinh trắc học"], pron: "/ˌbaɪoʊˈmetrɪks/" },
+            { english: "cursor", vietnamese: ["con trỏ"], pron: "/ˈkɜːrsər/" },
+            { english: "firmware", vietnamese: ["phần mềm cố định"], pron: "/ˈfɜːrmweər/" },
+            { english: "flash drive", vietnamese: ["USB"], pron: "/flæʃ draɪv/" },
+            { english: "frequency", vietnamese: ["tần số"], pron: "/ˈfriːkwənsi/" },
+            { english: ["GPS", "global positioning system"], vietnamese: ["hệ thống định vị"], pron: "/ˌdʒiː.piːˈes/" },
+            { english: "hardware", vietnamese: ["phần cứng"], pron: "/ˈhɑːrdweər/" },
+
+            // nhóm 5: từ chuyên môn lập trình – hay gặp khi code
+            { english: ["artificial intelligence", "AI"], vietnamese: ["trí tuệ nhân tạo"], pron: "/ˌɑːrtɪˈfɪʃəl ɪnˈtelɪdʒəns/" },
+            { english: "debugging", vietnamese: ["gỡ lỗi"], pron: "/diːˈbʌɡɪŋ/" },
+            { english: "e-commerce", vietnamese: ["thương mại điện tử"], pron: "/ˈiːˌkɑːmɜːrs/" },
+            { english: "graphic design", vietnamese: ["thiết kế đồ họa"], pron: "/ˈɡræfɪk dɪˈzaɪn/" },
+            { english: "hosting", vietnamese: ["lưu trữ web"], pron: "/ˈhoʊstɪŋ/" },
+            { english: "operating system", vietnamese: ["hệ điều hành"], pron: "/ˈɑːpəreɪtɪŋ ˈsɪstəm/" },
+            { english: "virtualization", vietnamese: ["ảo hóa"], pron: "/ˌvɜːrtʃuələˈzeɪʃən/" },
+
+
+            // nhóm 6: nâng cao – nên học sau
+            { english: "backup", vietnamese: ["sao lưu"], pron: "/ˈbækʌp/" },
+            { english: "cybersecurity", vietnamese: ["an ninh mạng"], pron: "/ˌsaɪbərsɪˈkjʊrəti/" },
+            { english: "multimedia", vietnamese: ["đa phương tiện"], pron: "/ˌmʌltiˈmiːdiə/" },
+            { english: "notification", vietnamese: ["thông báo"], pron: "/ˌnoʊtɪfɪˈkeɪʃən/" },
+            { english: "novice", vietnamese: ["người mới"], pron: "/ˈnɑːvɪs/" },
+            { english: "outsource", vietnamese: ["thuê ngoài"], pron: "/ˈaʊtsɔːrs/" },
+            { english: "patch", vietnamese: ["bản vá"], pron: "/pætʃ/" },
+            { english: "protocol", vietnamese: ["giao thức"], pron: "/ˈproʊtəkɔːl/" },
+            { english: "query", vietnamese: ["truy vấn"], pron: "/ˈkwɪəri/" },
+            { english: "recovery", vietnamese: ["khôi phục"], pron: "/rɪˈkʌvəri/" },
+            { english: "troubleshoot", vietnamese: ["khắc phục sự cố"], pron: "/ˈtrʌblˌʃuːt/" },
+
+        ];
+        let shuffled = [...words].sort(() => Math.random() - 0.5);
+        let index = 0;
+        let correct = 0;
+        let mode = Math.random() > 0.5 ? "EtoV" : "VtoE";
+        let wrongWords = [];
+        let reviewMode = false;
+
+        const wordDisplay = document.getElementById("wordDisplay");
+        const resultDiv = document.getElementById("result");
+        const input = document.getElementById("answerInput");
+        const questionType = document.getElementById("questionType");
+        const progress = document.getElementById("progress");
+        const button = document.getElementById("submitBtn");
+        const modeSelect = document.getElementById('modeSelect');
+
+        // When the user changes the mode, reset the session and start over
+        modeSelect.addEventListener('change', () => {
+            // reshuffle and reset progress
+            shuffled = [...words].sort(() => Math.random() - 0.5);
+            index = 0;
+            correct = 0;
+            wrongWords = [];
+            reviewMode = false;
+            // ensure inputs/buttons are visible again
+            input.style.display = '';
+            button.style.display = '';
+            resultDiv.textContent = '';
+            // brief delay so UI updates before showing first question
+            setTimeout(newQuestion, 120);
+        });
+
+        const ttsBtn = document.getElementById('ttsBtn');
+        const pronDiv = document.getElementById('pronunciation');
+        const autoplayChk = document.getElementById('autoplayChk');
+        const rateRange = document.getElementById('rateRange');
+        const rateValue = document.getElementById('rateValue');
+
+        function speak(text) {
+            if (!window.speechSynthesis) return;
+            try {
+                window.speechSynthesis.cancel();
+                const utter = new SpeechSynthesisUtterance(text);
+                // set language to en-US
+                utter.lang = 'en-US';
+                // set rate from control if present
+                try {
+                    const r = rateRange ? parseFloat(rateRange.value) : 1;
+                    if (isFinite(r)) utter.rate = r;
+                } catch (e) { }
+
+                // try to select a matching voice from available voices
+                const voices = window.speechSynthesis.getVoices() || [];
+                const match = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en-us')) || voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+                if (match) utter.voice = match;
+
+                window.speechSynthesis.speak(utter);
+            } catch (e) {
+                console.warn('TTS failed', e);
+            }
+        }
+
+        ttsBtn.addEventListener('click', () => {
+            // speak the English form of current word
+            const arr = reviewMode ? wrongWords : shuffled;
+            const w = arr[index];
+            if (w) speak(w.english);
+        });
+
+        // rate UI
+        if (rateRange && rateValue) {
+            rateValue.textContent = parseFloat(rateRange.value).toFixed(1);
+            rateRange.addEventListener('input', () => {
+                rateValue.textContent = parseFloat(rateRange.value).toFixed(1);
+            });
+        }
+
+        // Keyboard shortcut: Ctrl + . (Cmd + . on Mac) triggers TTS for current word
+        // Works even while typing; includes a short debounce to avoid repeats while keys are held.
+        (function () {
+            let ttsShortcutCooldown = false;
+            document.addEventListener('keydown', (e) => {
+                // require Ctrl (or Cmd on Mac) + Period
+                if (!((e.ctrlKey || e.metaKey) && (e.key === '.' || e.code === 'Period'))) return;
+                // prevent default browser behavior when possible
+                try { e.preventDefault(); } catch (_) { }
+                if (ttsShortcutCooldown) return;
+                ttsShortcutCooldown = true;
+                setTimeout(() => { ttsShortcutCooldown = false; }, 350);
+                const arr = reviewMode ? wrongWords : shuffled;
+                const w = arr[index];
+                if (w) {
+                    if (window.speechSynthesis) window.speechSynthesis.cancel();
+                    speak(w.english);
+                }
+            });
+        })();
+
+        // rate control removed
+
+        // Ensure voices list is loaded for some browsers
+        if (window.speechSynthesis) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                // nothing needed now, speak() will pick a match when available
+            };
+        }
+
+        function newQuestion() {
+            let arr = reviewMode ? wrongWords : shuffled;
+            if (index >= arr.length) {
+                if (!reviewMode && wrongWords.length > 0) {
+                    // Bắt đầu ôn lại các từ sai
+                    reviewMode = true;
+                    index = 0;
+                    resultDiv.innerHTML = "<b>Ôn lại các từ bạn đã trả lời sai!</b>";
+                    setTimeout(newQuestion, 1500);
+                    return;
+                } else if (reviewMode && wrongWords.length > 0) {
+                    // Nếu vẫn còn từ sai sau 1 vòng ôn lại, tiếp tục ôn lại nữa
+                    index = 0;
+                    resultDiv.innerHTML = "<b>Tiếp tục ôn lại các từ bạn còn sai!</b>";
+                    setTimeout(newQuestion, 1200);
+                    return;
+                }
+                showFinalResult();
+                return;
+            }
+
+            const sel = document.getElementById('modeSelect').value;
+            if (sel === 'Mixed') {
+                mode = Math.random() > 0.5 ? "EtoV" : "VtoE";
+            } else {
+                mode = sel; // 'EtoV' or 'VtoE'
+            }
+            const w = arr[index];
+            input.value = "";
+            resultDiv.textContent = "";
+            progress.textContent = `Câu ${index + 1}/${arr.length}` + (reviewMode ? " (Ôn lại)" : "");
+
+            if (mode === "EtoV") {
+                questionType.textContent = "Dịch sang tiếng Việt:";
+                wordDisplay.textContent = w.english;
+                // show pronunciation if available
+                pronDiv.textContent = w.pron ? w.pron : '';
+                // autoplay if enabled
+                if (autoplayChk && autoplayChk.checked) {
+                    setTimeout(() => { if (window.speechSynthesis) window.speechSynthesis.cancel(); speak(w.english); }, 220);
+                }
+            } else {
+                questionType.textContent = "Dịch sang tiếng Anh:";
+                wordDisplay.textContent = Array.isArray(w.vietnamese) ? w.vietnamese.join(", ") : w.vietnamese;
+                pronDiv.textContent = '';
+            }
+            // ...không còn ví dụ...
+        }
+
+        function checkAnswer() {
+            let arr = reviewMode ? wrongWords : shuffled;
+            const userAnswer = input.value.trim().toLowerCase();
+            const w = arr[index];
+            let correctAnswers = mode === "EtoV"
+                ? (Array.isArray(w.vietnamese) ? w.vietnamese : [w.vietnamese])
+                : [w.english];
+            correctAnswers = correctAnswers.map(ans => ans.toLowerCase().trim());
+
+            if (correctAnswers.includes(userAnswer)) {
+                correct++;
+                resultDiv.innerHTML = "<span class='correct'>✅ Chính xác!</span>";
+                if (reviewMode) {
+                    wrongWords.splice(index, 1);
+                    setTimeout(newQuestion, 1200);
+                    return;
+                }
+            } else {
+                let showAnswer = mode === "EtoV" ? correctAnswers.join(", ") : w.english;
+                resultDiv.innerHTML = `<span class='wrong'>❌ Sai rồi!</span> Đáp án đúng là: <b>${showAnswer}</b>`;
+                if (!reviewMode && !wrongWords.includes(w)) {
+                    wrongWords.push(w);
+                }
+            }
+
+            index++;
+            setTimeout(newQuestion, 1200);
+        }
+
+        function showFinalResult() {
+            wordDisplay.textContent = "Hoàn thành!";
+            questionType.textContent = "";
+            input.style.display = "none";
+            button.style.display = "none";
+            progress.textContent = "";
+            if (wrongWords.length === 0) {
+                resultDiv.innerHTML = `<h3>Bạn trả lời đúng ${correct}/${shuffled.length} từ.</h3>🌟 Tuyệt vời! Bạn đã nhớ hết từ vựng!`;
+            } else {
+                resultDiv.innerHTML = `<h3>Bạn đã hoàn thành! Hãy ôn lại các từ này sau:</h3><ul>` +
+                    wrongWords.map(w => `<li>${w.english} - ${w.vietnamese}</li>`).join("") + "</ul>";
+            }
+        }
+
+        button.addEventListener("click", checkAnswer);
+        input.addEventListener("keypress", e => {
+            if (e.key === "Enter") checkAnswer();
+        });
+
+        newQuestion();
+    </script>
+
+</body>
+
+</html>
