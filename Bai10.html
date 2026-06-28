@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện phản xạ từ vựng Anh - Việt</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #dff1ff, #a0c4ff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 70px;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 98%;
+            max-width: 1000px;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        h1 {
+            color: #0077b6;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+        }
+
+        .word {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 30px 0;
+            color: #03045e;
+        }
+
+        input {
+            width: 90%;
+            padding: 18px;
+            border-radius: 15px;
+            border: 1px solid #ccc;
+            font-size: 1.2em;
+        }
+
+        button {
+            margin-top: 30px;
+            background-color: #0077b6;
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #023e8a;
+        }
+
+        .result {
+            margin-top: 30px;
+            font-weight: bold;
+            font-size: 1.3em;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .wrong {
+            color: red;
+        }
+
+        /* Controls styling */
+        .controls {
+            margin-bottom: 18px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .controls label {
+            font-size: 0.95em;
+            color: #023e8a;
+            font-weight: 600;
+            padding: 6px 10px;
+            background: rgba(2, 62, 138, 0.06);
+            border-radius: 8px;
+        }
+
+        .controls select {
+            -webkit-appearance: none;
+            appearance: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #cbd6e7;
+            background: linear-gradient(180deg, #fff, #f7fbff);
+            box-shadow: 0 2px 6px rgba(3, 37, 99, 0.06);
+            font-size: 1em;
+            min-width: 220px;
+            cursor: pointer;
+        }
+
+        .controls select:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 119, 182, 0.12);
+            border-color: #0077b6;
+        }
+
+        /* TTS button - polished */
+        .tts-btn {
+            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(180deg, #0077b6, #00629a);
+            color: #fff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 999px;
+            font-size: 1em;
+            font-weight: 600;
+            box-shadow: 0 6px 18px rgba(3, 37, 99, 0.12), inset 0 -2px 0 rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+        }
+
+        .tts-btn .icon {
+            font-size: 1.05em;
+        }
+
+        .tts-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(3, 37, 99, 0.14);
+        }
+
+        .tts-btn:active {
+            transform: translateY(0);
+            opacity: 0.95;
+        }
+
+        .shortcut-hint {
+            font-size: 0.85em;
+            color: #055a8c;
+            margin-top: 6px;
+        }
+
+        /* Pronunciation text styling */
+        #pronunciation {
+            color: #0b3b66;
+            font-weight: 600;
+            background: rgba(2, 119, 182, 0.06);
+            padding: 6px 10px;
+            border-radius: 8px;
+            margin-top: 6px;
+        }
+
+        /* Word row with TTS controls on the right */
+        .word-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .word-block {
+            text-align: center;
+        }
+
+        .tts-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            border-radius: 12px;
+            background: rgba(0, 119, 182, 0.04);
+        }
+
+        /* voice select removed */
+
+        /* autoplay and speed */
+        input[type="range"]#rateRange {
+            width: 120px;
+            accent-color: #0077b6;
+        }
+
+        input[type="checkbox"]#autoplayChk {
+            width: 16px;
+            height: 16px;
+            accent-color: #0077b6;
+        }
+
+        /* rate-control removed */
+
+        @media (max-width: 560px) {
+            .tts-btn {
+                padding: 10px 14px;
+                font-size: 0.95em;
+            }
+
+            .controls select {
+                min-width: 160px;
+            }
+
+            .container {
+                padding: 36px;
+                font-size: 1.25em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🎯 Luyện phản xạ từ vựng Anh - Việt</h1>
+        <p id="questionType">Dịch nghĩa của:</p>
+        <div class="controls">
+            <label for="modeSelect">Chế độ</label>
+            <select id="modeSelect">
+                <option value="EtoV">Tiếng Anh → Tiếng Việt</option>
+                <option value="VtoE">Tiếng Việt → Tiếng Anh</option>
+                <option value="Mixed">Xen lẫn (Random)</option>
+            </select>
+        </div>
+        <div class="word-row">
+            <div class="word-block">
+                <div class="word" id="wordDisplay"></div>
+                <div id="pronunciation" style="font-size:0.8em;color:#444;margin-top:6px;"></div>
+            </div>
+            <div class="tts-controls" aria-hidden="false">
+                <button class="tts-btn" id="ttsBtn" title="Nghe phát âm"><span
+                        class="icon">🔊</span><span>Nghe</span></button>
+                <div class="shortcut-hint">Phím tắt: Ctrl + .</div>
+                <label style="margin-top:8px;display:flex;align-items:center;gap:8px;font-size:0.9em;cursor:pointer;">
+                    <input type="checkbox" id="autoplayChk"> <span>Tự động đọc</span>
+                </label>
+                <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+                    <input id="rateRange" type="range" min="0.6" max="1.6" step="0.1" value="1" aria-label="Tốc độ đọc">
+                    <div style="font-size:0.9em;color:#055a8c;min-width:36px;text-align:center;" id="rateValue">1.0
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="text" id="answerInput" placeholder="Nhập câu trả lời...">
+        <br>
+        <button id="submitBtn">Kiểm tra</button>
+        <div class="result" id="result"></div>
+        <p id="progress"></p>
+    </div>
+
+    <script>
+        const words = [
+            // //================================== CONTRACT (HỢP ĐỒNG KINH DOANH) ================================
+            // {english: "abide by", vietnamese: ["chấp nhận", "tuân thủ", "tuân theo"], pron: "/əˈbaɪd baɪ/"},
+            // {english: "agreement", vietnamese: ["thỏa thuận", "hợp đồng"], pron: "/əˈɡriːmənt/"},
+            // {english: "assurance", vietnamese: ["chắc chắn","sự đảm bảo"], pron: "/əˈʃʊərəns/"},
+            // {english: "cancellation", vietnamese: ["sự xóa bỏ", "hủy bỏ"], pron: "/ˌkænsəˈleɪʃən/"},
+            // {english: "determine", vietnamese: ["giải quyết", "quyết định"], pron: "/dɪˈtɜːrmɪn/"},
+            // {english: "engage", vietnamese: ["thuê", "mượn"], pron: "/ɪnˈɡeɪdʒ/"},
+            // {english: "estalish", vietnamese: ["thành lập", "tổ chức"], pron: "/ɪˈstæblɪʃ/"},
+            // {english: "obligate", vietnamese: ["bắt buộc", "ép buộc"], pron: "/ˈɒblɪɡeɪt/"},
+            // {english: "party", vietnamese: ["nhóm", "bữa tiệc", "tổ chức"], pron: "/ˈpɑːrti/"},
+            // {english: "provision", vietnamese: ["sự cung cấp"], pron: "/prəˈvɪʒən/"},
+            // {english: "resolve", vietnamese: ["giải quyết", "quyết tâm"], pron: "/rɪˈzɒlv/"},
+            // {english: "specific", vietnamese: ["rõ ràng", "cụ thể"], pron: "/spəˈsɪfɪk/"},
+
+            // //================================== MARKETING (CHỦ ĐỀ TIẾP THỊ) ==================================
+            // { english: "attract", vietnamese: ["thu hút", "lôi kéo"], pron: "/əˈtrækt/" },
+            // { english: "compare", vietnamese: ["so sánh"], pron: "/kəmˈpɛr/" },
+            // { english: "competition", vietnamese: ["sự cạnh tranh", "ganh đua"], pron: "/ˌkɒmpəˈtɪʃən/" },
+            // { english: "consume", vietnamese: ["tiêu thụ", "sử dụng"], pron: "/kənˈsuːm/" },
+            // { english: "convince", vietnamese: ["thuyết phục"], pron: "/kənˈvɪns/" },
+            // { english: "currently", vietnamese: ["hiện tại", "lúc này", "bây giờ"], pron: "/ˈkʌrəntli/" },  
+            // { english: "fad", vietnamese: ["mốt nhất thời", "sự thích thú"], pron: "/fæd/" },     
+            // { english: "inspiration", vietnamese: ["truyền cảm hứng"], pron: "/ˌɪnspəˈreɪʃən/" },
+            // { english: "market", vietnamese: ["chợ", "thị trường", "tiếp thị"], pron: "/ˈmɑːrkɪt/" },
+            // { english: "persuasion", vietnamese: ["sự thuyết phục", "sự tin tưởng"], pron: "/pəˈsweɪʒən/" },
+            // { english: "productive", vietnamese: ["hiệu suất cao", "năng suất tốt"], pron: "/prəˈdʌktɪv/" },
+            // { english: "satisfaction", vietnamese: ["sự hài lòng", "thỏa mãn"], pron: "/ˌsætɪsˈfækʃən/" },
+
+            //================================== WARRANANTIES (BẢO HIỂM) ==================================
+            { english: "characteristic", vietnamese: ["nét đặc trưng", "đặc điểm"], pron: "/ˌkærəktəˈrɪstɪk/" },
+            { english: "consequence", vietnamese: ["hậu quả", "kết quả"], pron: "/ˈkɒnsɪkwəns/" },
+            { english: "consider", vietnamese: ["cân nhắc", "suy nghĩ", "xem xét"], pron: "/kənˈsɪdə(r)/" },
+            { english: "cover", vietnamese: ["bao bì", "bảo hộ", "kiểm soát"], pron: "/ˈkʌvə(r)/" },
+            { english: "expiration", vietnamese: ["hết hạn", "hạn sử dụng"], pron: "/ˌɛkspəˈreɪʃən/" },
+            { english: "frequently", vietnamese: ["thường thường"], pron: "/ˈfriːkwəntli/" },
+            { english: "imply", vietnamese: ["hàm ý", "ẩn ý", "nói bóng"], pron: "/ɪmˈplaɪ/" },
+            { english: "promise", vietnamese: ["hứa hẹn"], pron: "/ˈprɒmɪs/" },
+            { english: "protect", vietnamese: ["bảo vệ"], pron: "/prəˈtɛkt/" },
+            { english: "reputation", vietnamese: ["sự nổi tiếng", "danh tiếng"], pron: "/ˌrɛpjuˈteɪʃən/" },
+            { english: "require", vietnamese: ["yêu cầu"], pron: "/rɪˈkwaɪə(r)/" },
+            { english: "variety", vietnamese: ["đa dạng", "phong phú"], pron: "/vəˈraɪəti/" },
+
+            // // ================================== BUSINESS PLANNING (CHỦ ĐỀ KINH DAONH) ==================================
+            // { english: "address", vietnamese: ["trình bày", "diễn giải"], pron: "/əˈdres/" },
+            // { english: "avoid", vietnamese: ["tránh xa"], pron: "/əˈvɔɪd/" },
+            // { english: "demonstrate", vietnamese: ["chứng minh", "giải thích"], pron: "/ˈdemənstreɪt/" },
+            // { english: "develop", vietnamese: ["phát triển"], pron: "/dɪˈveləp/" },
+            // { english: "evaluate", vietnamese: ["định giá", "đánh giá","ước lượng"], pron: "/ɪˈvæljueɪt/" },
+            // { english: "gather", vietnamese: ["tổng kết", "thu thập ý kiến"], pron: "/ˈɡæðər/" },
+            // { english: "offer", vietnamese: ["đề nghị", "gợi ý"], pron: "/ˈɔːfər/" },
+            // { english: "primarily", vietnamese: ["ưu tiên nhất", "quan trọng nhất", "chủ yếu"], pron: "/praɪˈmerəli/" },
+            // { english: "risk", vietnamese: ["nguy hiểm", "rủi ro"], pron: "/rɪsk/" },
+            // { english: "strategy", vietnamese: ["chiến lược", "vạch ra kế hoạch"], pron: "/ˈstrætədʒi/" },
+            // { english: "strong", vietnamese: ["mạnh mẽ", "khỏe mạnh"], pron: "/strɔːŋ/" },
+            // { english: "substitution", vietnamese: ["sự thay thế"], pron: "/ˌsʌbstɪˈtuːʃn/" },
+
+
+            // //================================== CONFERENCES (HỘI THẢO) ==================================
+            // { english: "accommodate", vietnamese: ["cung cấp", "đáp ứng"], pron: "/əˈkɒmədeɪt/" },
+            // { english: "arrangement", vietnamese: ["sắp xếp", "tổ chức"], pron: "/əˈreɪndʒmənt/" },
+            // { english: "association", vietnamese: ["sự kết hợp", "liên kết"], pron: "/əˌsəʊsiˈeɪʃən/" },
+            // { english: "attend", vietnamese: ["tham dự", "chú tâm", "dự định"], pron: "/əˈtend/" },
+            // { english: "get in touch", vietnamese: ["liên lạc với ai đó", "chạm vào"], pron: "/ɡet ɪn tʌtʃ/" },
+            // { english: "hold", vietnamese: ["tổ chức", "cầm", "nắm", "giữ"], pron: "/həʊld/" },
+            // { english: "location", vietnamese: ["địa điểm"], pron: "/ləʊˈkeɪʃən/" },
+            // { english: "overcrowded", vietnamese: ["đông nghịt"], pron: "/ˌəʊvəˈkraʊdɪd/" },
+            // { english: "register", vietnamese: ["đăng kí", "ghi sổ"], pron: "/ˈredʒɪstə/" },
+            // { english: "select", vietnamese: ["chọn lựa"], pron: "/sɪˈlekt/" },
+            // { english: "session", vietnamese: ["buổi họp", "khu vực"], pron: "/ˈseʃən/" },
+            // { english: "take part in", vietnamese: ["tham gia", "tham dự"], pron: "/teɪk pɑːt ɪn/" },
+
+
+            // //================================== COMPUTERS (MÁY TÍNH) ==================================
+            // { english: "access", vietnamese: ["truy cập", "đăng nhập"], pron: "/ˈækses/" },
+            // { english: "allocate", vietnamese: ["chỉ định", "cấp cho", "phân phối"], pron: "/ˈæləkeɪt/" },
+            // { english: "compatible", vietnamese: ["tương thích"], pron: "/kəmˈpætəbl/" },
+            // { english: "delete", vietnamese: ["xóa", "hủy bỏ"], pron: "/dɪˈliːt/" },
+            // { english: "display", vietnamese: ["trình bày", "trưng bày"], pron: "/dɪˈspleɪ/" },
+            // { english: "duplicate", vietnamese: ["nhân đôi", "tạo bản sao"], pron: "/ˈdjuːplɪkət/" },
+            // { english: "failure", vietnamese: ["thất bại"], pron: "/ˈfeɪljər/" },
+            // { english: "figure out", vietnamese: ["tìm ra", "suy ra"], pron: "/ˈfɪɡər aʊt/" },
+            // { english: "ignore", vietnamese: ["lờ đi", "không để ý"], pron: "/ɪɡˈnɔːr/" },
+            // { english: "search", vietnamese: ["nghiên cứu", "tìm kiếm"], pron: "/sɜːrtʃ/" },
+            // { english: "shut down", vietnamese: ["tắt", "đóng", "im miệng"], pron: "/ʃʌt daʊn/" },
+            // { english: "warning", vietnamese: ["cảnh báo", "sự cảnh báo"], pron: "/ˈwɔːrnɪŋ/" },
+
+
+            // //================================== OFFICE TECHNOLOGY (KỸ THUẬT VĂN PHÒNG) ==================================
+            // { english: "affordable", vietnamese: ["vừa phải", "hợp lí", "có khả năng chi trả"], pron: "/əˈfɔːrdəbl/" },
+            // { english: "as needed", vietnamese: ["cần thiết"], pron: "/æz ˈniːdɪd/" },
+            // { english: "be in charge of", vietnamese: ["chịu trách nhiệm", "phụ trách"], pron: "/bi ɪn ˈtʃɑːrdʒ əv/" },
+            // { english: "capacity", vietnamese: ["khoảng không gian", "khoảng trống"], pron: "/kəˈpæsəti/" },
+            // { english: "durable", vietnamese: ["bền bỉ", "bền lâu"], pron: "/ˈdʊrəbl/" }, 
+            // { english: "initiative", vietnamese: ["đầu tiên", "trước tiên", "ban đầu"], pron: "/ɪˈnɪʃətɪv/" },
+            // { english: "physically", vietnamese: ["thể chất"], pron: "/ˈfɪzɪkli/" },
+            // { english: "provider", vietnamese: ["nhà cung cấp"], pron: "/prəˈvaɪdər/" },
+            // { english: "recur", vietnamese: ["tái lại", "lặp lại"], pron: "/rɪˈkɜːr/" },
+            // { english: "reduction", vietnamese: ["sự suy giảm", "thu nhỏ"], pron: "/rɪˈdʌkʃən/" },
+            // { english: "stay on top of", vietnamese: ["đứng đầu", "xếp hạng đầu"], pron: "/steɪ ɒn tɒp əv/" },
+            // { english: "stock", vietnamese: ["kho", "dự trữ"], pron: "/stɒk/" }, 
+
+
+            // //================================== OFFICE PROCEDURES (QUY TRÌNH) ==================================
+            // { english: "appreciation", vietnamese: ["công nhận", "trân trọng", "biết ơn"], pron: "/əˌpriːʃiˈeɪʃən/" },
+            // { english: "be made of", vietnamese: ["được làm bằng"], pron: "/biː meɪd ʌv/" },
+            // { english: "bring in", vietnamese: ["thuê", "mướn", "tuyển dụng"], pron: "/brɪŋ ɪn/" },
+            // { english: "casually", vietnamese: ["không trang trọng", "tình cờ", "ngẫu nhiên", "mặc đồ thường"], pron: "/ˈkæʒuəli/" },
+            // { english: "code", vietnamese: ["mã", "mật mã", "bộ luật"], pron: "/koʊd/" },
+            // { english: "expose", vietnamese: ["phơi bày", "tiết lộ", "vạch trần"], pron: "/ɪkˈspoʊz/" },
+            // { english: "glimpse", vietnamese: ["nhìn lướt qua", "thoáng nhìn"], pron: "/ɡlɪmps/" },
+            // { english: "out of", vietnamese: ["hết", "không còn"], pron: "/aʊt ʌv/" },
+            // { english: "outdated", vietnamese: ["lỗi thời", "lạc hậu"], pron: "/ˌaʊtˈdeɪtəd/" },
+            // { english: "practice", vietnamese: ["tập luyện", "thực hành", "thói quen"], pron: "/ˈpræktɪs/" },
+            // { english: "reinforce", vietnamese: ["củng cố", "tăng cường", "ủng hộ"], pron: "/ˌriːɪnˈfɔːrs/" },
+            // { english: "verbally", vietnamese: ["bằng lời nói", "bằng miệng"], pron: "/ˈvɜːrbəli/" },
+
+
+            // //================================== ELECTRONICS (CHỦ ĐỀ ĐIỆN TỬ) ==================================
+            // { english: "disk", vietnamese: ["đĩa lưu trữ", "đĩa máy tính"], pron: "/dɪsk/" },
+            // { english: "facilitate", vietnamese: ["làm cho dễ dàng", "thuận tiện"], pron: "/fəˈsɪlɪteɪt/" },
+            // { english: "network", vietnamese: ["mạng lưới"], pron: "/ˈnetwɜːrk/" },
+            // { english: "popularity", vietnamese: ["sự phổ biến"], pron: "/ˌpɒpjuˈlærəti/" },
+            // { english: "process", vietnamese: ["xử lí", "quá trình", "quy trình"], pron: "/ˈproʊses/ or /ˈprəʊses/ (UK)" },
+            // { english: "replace", vietnamese: ["thay thế"], pron: "/rɪˈpleɪs/" },
+            // { english: "revolution", vietnamese: ["cuộc cách mạng", "sự cải tiến mạnh"], pron: "/ˌrevəˈluːʃən/" },
+            // { english: "sharp", vietnamese: ["sắc", "bén", "nhọn", "thông minh"], pron: "/ʃɑːrp/" },
+            // { english: "skill", vietnamese: ["kĩ năng"], pron: "/skɪl/" },
+            // { english: "software", vietnamese: ["phần mềm"], pron: "/ˈsɒftweər/ or /ˈsɔːftwer/" },
+            // { english: "store", vietnamese: ["lưu trữ", "dự trữ"], pron: "/stɔːr/" },
+            // { english: "technically", vietnamese: ["về mặt kĩ thuật"], pron: "/ˈteknɪkli/" },
+
+            // //================================== JOB ADVERTISING (TUYỂN DỤNG) ==================================
+            // { english: "abundant", vietnamese: ["nhiều", "phong phú", "dồi dào"], pron: "/əˈbʌn.dənt/" },
+            // { english: "accomplishment", vietnamese: ["thành tựu", "sự hoàn thành"], pron: "/əˈkʌm.plɪʃ.mənt/" },
+            // { english: "bring together", vietnamese: ["nhóm lại", "họp lại", "tụ hợp"], pron: "/brɪŋ təˈɡeð.ər/" },
+            // { english: "candidate", vietnamese: ["ứng cử viên"], pron: "/ˈkæn.dɪ.dət/" },
+            // { english: "come up with", vietnamese: ["đưa ra", "nghĩ ra", "tìm ra"], pron: "/kʌm ʌp wɪð/" },
+            // { english: "commensurate", vietnamese: ["tương xứng", "xứng với"], pron: "/kəˈmen.sjər.ət/" },
+            // { english: "match", vietnamese: ["vừa", "phù hợp với"], pron: "/mætʃ/" },
+            // { english: "profile", vietnamese: ["tiểu sử", "mô tả sơ lược", "hồ sơ"], pron: "/ˈprəʊ.faɪl/" },
+            // { english: "qualifications", vietnamese: ["trình độ", "năng lực", "bằng cấp"], pron: "/ˌkwɒ.lɪ.fɪˈkeɪ.ʃənz/" },
+            // { english: "recruit", vietnamese: ["tuyển dụng"], pron: "/rɪˈkruːt/" },
+            // { english: "submit", vietnamese: ["nộp", "trình", "gửi"], pron: "/səbˈmɪt/" },
+            // { english: "time consuming", vietnamese: ["tốn thời gian", "cần nhiều thời gian"], pron: "/ˈtaɪm kənˌsjuː.mɪŋ/" },
+
+
+        ];
+
+        let shuffled = [...words].sort(() => Math.random() - 0.5);
+        let index = 0;
+        let correct = 0;
+        let mode = Math.random() > 0.5 ? "EtoV" : "VtoE";
+        let wrongWords = [];
+        let reviewMode = false;
+
+        const wordDisplay = document.getElementById("wordDisplay");
+        const resultDiv = document.getElementById("result");
+        const input = document.getElementById("answerInput");
+        const questionType = document.getElementById("questionType");
+        const progress = document.getElementById("progress");
+        const button = document.getElementById("submitBtn");
+        const modeSelect = document.getElementById('modeSelect');
+
+        // When the user changes the mode, reset the session and start over
+        modeSelect.addEventListener('change', () => {
+            // reshuffle and reset progress
+            shuffled = [...words].sort(() => Math.random() - 0.5);
+            index = 0;
+            correct = 0;
+            wrongWords = [];
+            reviewMode = false;
+            // ensure inputs/buttons are visible again
+            input.style.display = '';
+            button.style.display = '';
+            resultDiv.textContent = '';
+            // brief delay so UI updates before showing first question
+            setTimeout(newQuestion, 120);
+        });
+
+        const ttsBtn = document.getElementById('ttsBtn');
+        const pronDiv = document.getElementById('pronunciation');
+        const autoplayChk = document.getElementById('autoplayChk');
+        const rateRange = document.getElementById('rateRange');
+        const rateValue = document.getElementById('rateValue');
+
+        function speak(text) {
+            if (!window.speechSynthesis) return;
+            try {
+                window.speechSynthesis.cancel();
+                const utter = new SpeechSynthesisUtterance(text);
+                // set language to en-US
+                utter.lang = 'en-US';
+                // set rate from control if present
+                try {
+                    const r = rateRange ? parseFloat(rateRange.value) : 1;
+                    if (isFinite(r)) utter.rate = r;
+                } catch (e) { }
+
+                // try to select a matching voice from available voices
+                const voices = window.speechSynthesis.getVoices() || [];
+                const match = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en-us')) || voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+                if (match) utter.voice = match;
+
+                window.speechSynthesis.speak(utter);
+            } catch (e) {
+                console.warn('TTS failed', e);
+            }
+        }
+
+        ttsBtn.addEventListener('click', () => {
+            // speak the English form of current word
+            const arr = reviewMode ? wrongWords : shuffled;
+            const w = arr[index];
+            if (w) speak(w.english);
+        });
+
+        // rate UI
+        if (rateRange && rateValue) {
+            rateValue.textContent = parseFloat(rateRange.value).toFixed(1);
+            rateRange.addEventListener('input', () => {
+                rateValue.textContent = parseFloat(rateRange.value).toFixed(1);
+            });
+        }
+
+        // Keyboard shortcut: Ctrl + . (Cmd + . on Mac) triggers TTS for current word
+        // Works even while typing; includes a short debounce to avoid repeats while keys are held.
+        (function () {
+            let ttsShortcutCooldown = false;
+            document.addEventListener('keydown', (e) => {
+                // require Ctrl (or Cmd on Mac) + Period
+                if (!((e.ctrlKey || e.metaKey) && (e.key === '.' || e.code === 'Period'))) return;
+                // prevent default browser behavior when possible
+                try { e.preventDefault(); } catch (_) { }
+                if (ttsShortcutCooldown) return;
+                ttsShortcutCooldown = true;
+                setTimeout(() => { ttsShortcutCooldown = false; }, 350);
+                const arr = reviewMode ? wrongWords : shuffled;
+                const w = arr[index];
+                if (w) {
+                    if (window.speechSynthesis) window.speechSynthesis.cancel();
+                    speak(w.english);
+                }
+            });
+        })();
+
+        // rate control removed
+
+        // Ensure voices list is loaded for some browsers
+        if (window.speechSynthesis) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                // nothing needed now, speak() will pick a match when available
+            };
+        }
+
+        function newQuestion() {
+            let arr = reviewMode ? wrongWords : shuffled;
+            if (index >= arr.length) {
+                if (!reviewMode && wrongWords.length > 0) {
+                    // Bắt đầu ôn lại các từ sai
+                    reviewMode = true;
+                    index = 0;
+                    resultDiv.innerHTML = "<b>Ôn lại các từ bạn đã trả lời sai!</b>";
+                    setTimeout(newQuestion, 1500);
+                    return;
+                } else if (reviewMode && wrongWords.length > 0) {
+                    // Nếu vẫn còn từ sai sau 1 vòng ôn lại, tiếp tục ôn lại nữa
+                    index = 0;
+                    resultDiv.innerHTML = "<b>Tiếp tục ôn lại các từ bạn còn sai!</b>";
+                    setTimeout(newQuestion, 1200);
+                    return;
+                }
+                showFinalResult();
+                return;
+            }
+
+            const sel = document.getElementById('modeSelect').value;
+            if (sel === 'Mixed') {
+                mode = Math.random() > 0.5 ? "EtoV" : "VtoE";
+            } else {
+                mode = sel; // 'EtoV' or 'VtoE'
+            }
+            const w = arr[index];
+            input.value = "";
+            resultDiv.textContent = "";
+            progress.textContent = `Câu ${index + 1}/${arr.length}` + (reviewMode ? " (Ôn lại)" : "");
+
+            if (mode === "EtoV") {
+                questionType.textContent = "Dịch sang tiếng Việt:";
+                wordDisplay.textContent = w.english;
+                // show pronunciation if available
+                pronDiv.textContent = w.pron ? w.pron : '';
+                // autoplay if enabled
+                if (autoplayChk && autoplayChk.checked) {
+                    setTimeout(() => { if (window.speechSynthesis) window.speechSynthesis.cancel(); speak(w.english); }, 220);
+                }
+            } else {
+                questionType.textContent = "Dịch sang tiếng Anh:";
+                wordDisplay.textContent = Array.isArray(w.vietnamese) ? w.vietnamese.join(", ") : w.vietnamese;
+                pronDiv.textContent = '';
+            }
+            // ...không còn ví dụ...
+        }
+
+        function checkAnswer() {
+            let arr = reviewMode ? wrongWords : shuffled;
+            const userAnswer = input.value.trim().toLowerCase();
+            const w = arr[index];
+            let correctAnswers = mode === "EtoV"
+                ? (Array.isArray(w.vietnamese) ? w.vietnamese : [w.vietnamese])
+                : [w.english];
+            correctAnswers = correctAnswers.map(ans => ans.toLowerCase().trim());
+
+            if (correctAnswers.includes(userAnswer)) {
+                correct++;
+                resultDiv.innerHTML = "<span class='correct'>✅ Chính xác!</span>";
+                if (reviewMode) {
+                    wrongWords.splice(index, 1);
+                    setTimeout(newQuestion, 1200);
+                    return;
+                }
+            } else {
+                let showAnswer = mode === "EtoV" ? correctAnswers.join(", ") : w.english;
+                resultDiv.innerHTML = `<span class='wrong'>❌ Sai rồi!</span> Đáp án đúng là: <b>${showAnswer}</b>`;
+                if (!reviewMode && !wrongWords.includes(w)) {
+                    wrongWords.push(w);
+                }
+            }
+
+            index++;
+            setTimeout(newQuestion, 1200);
+        }
+
+        function showFinalResult() {
+            wordDisplay.textContent = "Hoàn thành!";
+            questionType.textContent = "";
+            input.style.display = "none";
+            button.style.display = "none";
+            progress.textContent = "";
+            if (wrongWords.length === 0) {
+                resultDiv.innerHTML = `<h3>Bạn trả lời đúng ${correct}/${shuffled.length} từ.</h3>🌟 Tuyệt vời! Bạn đã nhớ hết từ vựng!`;
+            } else {
+                resultDiv.innerHTML = `<h3>Bạn đã hoàn thành! Hãy ôn lại các từ này sau:</h3><ul>` +
+                    wrongWords.map(w => `<li>${w.english} - ${w.vietnamese}</li>`).join("") + "</ul>";
+            }
+        }
+
+        button.addEventListener("click", checkAnswer);
+        input.addEventListener("keypress", e => {
+            if (e.key === "Enter") checkAnswer();
+        });
+
+        newQuestion();
+    </script>
+
+</body>
+
+</html>
