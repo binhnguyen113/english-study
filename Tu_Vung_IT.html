@@ -228,6 +228,11 @@
                 <option value="Mixed">Xen lẫn (Random)</option>
             </select>
         </div>
+        <div class="controls">
+            <label for="topicSelect">Chủ đề</label>
+            <select id="topicSelect"></select>
+            <div id="topicInfo" style="font-size:.9rem; color:#4d698b;"></div>
+        </div>
         <div class="word-row">
             <div class="word-block">
                 <div class="word" id="wordDisplay"></div>
@@ -315,12 +320,23 @@
             { english: "troubleshoot", vietnamese: ["khắc phục sự cố"], pron: "/ˈtrʌblˌʃuːt/" },
 
         ];
-        let shuffled = [...words].sort(() => Math.random() - 0.5);
+        const topicDefinitions = [
+            { value: "all", label: "Ôn tất cả", start: 0, count: words.length },
+            { value: "foundation", label: "Nền tảng CNTT", start: 0, count: 7 },
+            { value: "network", label: "Mạng", start: 7, count: 7 },
+            { value: "security", label: "Bảo mật", start: 14, count: 7 },
+            { value: "hardware", label: "Phần cứng", start: 21, count: 7 },
+            { value: "programming", label: "Lập trình", start: 28, count: 7 },
+            { value: "advanced", label: "Nâng cao", start: 35, count: 11 }
+        ];
+
+        let shuffled = [];
         let index = 0;
         let correct = 0;
-        let mode = Math.random() > 0.5 ? "EtoV" : "VtoE";
+        let mode = "EtoV";
         let wrongWords = [];
         let reviewMode = false;
+        let selectedTopic = "all";
 
         const wordDisplay = document.getElementById("wordDisplay");
         const resultDiv = document.getElementById("result");
@@ -329,21 +345,46 @@
         const progress = document.getElementById("progress");
         const button = document.getElementById("submitBtn");
         const modeSelect = document.getElementById('modeSelect');
+        const topicSelect = document.getElementById('topicSelect');
+        const topicInfo = document.getElementById('topicInfo');
 
-        // When the user changes the mode, reset the session and start over
-        modeSelect.addEventListener('change', () => {
-            // reshuffle and reset progress
-            shuffled = [...words].sort(() => Math.random() - 0.5);
+        function getTopicWords(value) {
+            const def = topicDefinitions.find(item => item.value === value);
+            if (!def || value === 'all') return [...words];
+            return words.slice(def.start, def.start + def.count);
+        }
+
+        function populateTopicSelect() {
+            topicSelect.innerHTML = topicDefinitions.map(item => `<option value="${item.value}">${item.label}</option>`).join('');
+            topicSelect.value = selectedTopic;
+            topicInfo.textContent = selectedTopic === 'all'
+                ? 'Đang ôn tất cả từ vựng.'
+                : `Đang ôn chủ đề: ${topicDefinitions.find(item => item.value === selectedTopic)?.label || ''}`;
+        }
+
+        function startSession() {
+            const topicWords = getTopicWords(selectedTopic);
+            shuffled = [...topicWords].sort(() => Math.random() - 0.5);
             index = 0;
             correct = 0;
             wrongWords = [];
             reviewMode = false;
-            // ensure inputs/buttons are visible again
             input.style.display = '';
             button.style.display = '';
             resultDiv.textContent = '';
-            // brief delay so UI updates before showing first question
-            setTimeout(newQuestion, 120);
+            populateTopicSelect();
+            newQuestion();
+        }
+
+        populateTopicSelect();
+
+        modeSelect.addEventListener('change', () => {
+            startSession();
+        });
+
+        topicSelect.addEventListener('change', () => {
+            selectedTopic = topicSelect.value;
+            startSession();
         });
 
         const ttsBtn = document.getElementById('ttsBtn');
@@ -518,7 +559,7 @@
             if (e.key === "Enter") checkAnswer();
         });
 
-        newQuestion();
+        startSession();
     </script>
 
 </body>
