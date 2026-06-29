@@ -257,58 +257,67 @@
     </div>
 
     <script>
-        const words = [
-
-            //21.================================== BANKING (NGÂN HÀNG) ==================================
-            { english: "accept", vietnamese: ["chấp nhận", "đón nhận"], pron: "/əkˈsept/" },
-            { english: "balance", vietnamese: ["số dư tài khoản", "cân bằng"], pron: "/ˈbæləns/" },
-            { english: "borrow", vietnamese: ["vay mượn"], pron: "/ˈbɒroʊ/" },
-            { english: "cautiously", vietnamese: ["cẩn thận", "thận trọng"], pron: "/ˈkɔːʃəsli/" },
-            { english: "deduct", vietnamese: ["điều chỉnh", "sửa đổi"], pron: "/dɪˈdʌkt/" },
-            { english: "dividend", vietnamese: ["tiền lãi cổ phần"], pron: "/ˈdɪvɪdend/" },
-            { english: "down payment", vietnamese: ["tiền đặt cọc", "trả trước"], pron: "/ˈdaʊn ˈpeɪmənt/" },
-            { english: "mortgage", vietnamese: ["vay mua nhà", "tiền thế chấp"], pron: "/ˈmɔːrɡɪdʒ/" },
-            { english: "restricted", vietnamese: ["hạn chế", "bị giới hạn"], pron: "/rɪˈstrɪktɪd/" },
-            { english: "signature", vietnamese: ["chữ ký"], pron: "/ˈsɪɡnətʃər/" },
-            { english: "take out", vietnamese: ["lấy ra", "rút tiền"], pron: "/teɪk aʊt/" },
-            { english: "transaction", vietnamese: ["giao dịch"], pron: "/trænˈzækʃən/" },
-
-            //22.================================== ACCOUNTING (KẾ TOÁN) ==================================
-            { english: "accounting", vietnamese: ["kế toán"], pron: "/əˈkaʊntɪŋ/" },
-            { english: "accumulate", vietnamese: ["tích lũy", "tích góp"], pron: "/əˈkjuːmjuːleɪt/" },
-            { english: "asset", vietnamese: ["tài sản"], pron: "/ˈæsɛt/" },
-            { english: "audit", vietnamese: ["kiểm toán"], pron: "/ˈɔːdɪt/" },
-            { english: "budget", vietnamese: ["kế hoạch tài chính", "ngân sách"], pron: "/ˈbʌdʒɪt/" },
-            { english: "build up", vietnamese: ["tăng cường", "xây dựng"], pron: "/bɪld ʌp/" },
-            { english: "client", vietnamese: ["khách hàng"], pron: "/ˈklaɪənt/" },
-            { english: "debt", vietnamese: ["nợ", "khoản "], pron: "/det/" },
-            { english: "outstanding", vietnamese: ["chưa thanh toán", "nổi bật"], pron: "/ˌaʊtˈstændɪŋ/" },
-            { english: "profitably", vietnamese: ["có lợi nhuận"], pron: "/ˈprɒfɪtəbli/" },
-            { english: "reconcile", vietnamese: ["đối chiếu sổ sách"], pron: "/ˈrekənsaɪl/" },
-            { english: "turnover", vietnamese: ["doanh thu", "doanh số"], pron: "/ˈtɜːnˌoʊvər/" },
-
-
-            //23.================================== INVESTMENT (ĐẦU TƯ) ========================================
-            { english: "aggressively", vietnamese: ["mạnh tay (trong đầu tư)", "quyết liệt"], pron: "/əˈɡresɪvli/" },
-            { english: "attitude", vietnamese: ["quan điểm đầu tư", "thái độ"], pron: "/ˈætɪtjuːd/" },
-            { english: "commit", vietnamese: ["cam kết (vốn)", "đầu tư vào"], pron: "/kəˈmɪt/" },
-            { english: "conservative", vietnamese: ["thận trọng (ít rủi ro)"], pron: "/kənˈsɜːrvətɪv/" },
-            { english: "fund", vietnamese: ["quỹ đầu tư", "cấp vốn"], pron: "/fʌnd/" },
-            { english: "invest", vietnamese: ["đầu tư"], pron: "/ɪnˈvest/" },
-            { english: "long term", vietnamese: ["dài hạn"], pron: "/ˌlɔːŋ ˈtɜːrm/" },
-            { english: "portfolio", vietnamese: ["danh mục đầu tư"], pron: "/pɔːrtˈfoʊlioʊ/" },
-            { english: "pull out", vietnamese: ["rút vốn", "thoái vốn"], pron: "/pʊl aʊt/" },
-            { english: "resource", vietnamese: ["nguồn lực (tài chính)"], pron: "/rɪˈsɔːrs/" },
-            { english: "return", vietnamese: ["lợi nhuận", "tỷ suất sinh lời"], pron: "/rɪˈtɜːrn/" },
-            { english: "wisely", vietnamese: ["một cách khôn ngoan"], pron: "/ˈwaɪzli/" }
-
-        ];
         const topicDefinitions = [
-            { value: "all", label: "Ôn tất cả", start: 0, count: words.length },
-            { value: "banking", label: "Banking (Ngân hàng)", start: 0, count: 12 },
-            { value: "accounting", label: "Accounting (Kế toán)", start: 12, count: 12 },
-            { value: "investment", label: "Investment (Đầu tư)", start: 24, count: 12 }
+            { value: "all", label: "Ôn tất cả", words: [] },
+            {
+                value: "banking",
+                label: "Banking (Ngân hàng)",
+                words: [
+                    { english: "accept", vietnamese: ["chấp nhận", "đón nhận"], pron: "/əkˈsept/" },
+                    { english: "balance", vietnamese: ["số dư tài khoản", "cân bằng"], pron: "/ˈbæləns/" },
+                    { english: "borrow", vietnamese: ["vay mượn"], pron: "/ˈbɒroʊ/" },
+                    { english: "cautiously", vietnamese: ["cẩn thận", "thận trọng"], pron: "/ˈkɔːʃəsli/" },
+                    { english: "deduct", vietnamese: ["điều chỉnh", "sửa đổi"], pron: "/dɪˈdʌkt/" },
+                    { english: "dividend", vietnamese: ["tiền lãi cổ phần"], pron: "/ˈdɪvɪdend/" },
+                    { english: "down payment", vietnamese: ["tiền đặt cọc", "trả trước"], pron: "/ˈdaʊn ˈpeɪmənt/" },
+                    { english: "mortgage", vietnamese: ["vay mua nhà", "tiền thế chấp"], pron: "/ˈmɔːrɡɪdʒ/" },
+                    { english: "restricted", vietnamese: ["hạn chế", "bị giới hạn"], pron: "/rɪˈstrɪktɪd/" },
+                    { english: "signature", vietnamese: ["chữ ký"], pron: "/ˈsɪɡnətʃər/" },
+                    { english: "take out", vietnamese: ["lấy ra", "rút tiền"], pron: "/teɪk aʊt/" },
+                    { english: "transaction", vietnamese: ["giao dịch"], pron: "/trænˈzækʃən/" }
+                ]
+            },
+            {
+                value: "accounting",
+                label: "Accounting (Kế toán)",
+                words: [
+                    { english: "accounting", vietnamese: ["kế toán"], pron: "/əˈkaʊntɪŋ/" },
+                    { english: "accumulate", vietnamese: ["tích lũy", "tích góp"], pron: "/əˈkjuːmjuːleɪt/" },
+                    { english: "asset", vietnamese: ["tài sản"], pron: "/ˈæsɛt/" },
+                    { english: "audit", vietnamese: ["kiểm toán"], pron: "/ˈɔːdɪt/" },
+                    { english: "budget", vietnamese: ["kế hoạch tài chính", "ngân sách"], pron: "/ˈbʌdʒɪt/" },
+                    { english: "build up", vietnamese: ["tăng cường", "xây dựng"], pron: "/bɪld ʌp/" },
+                    { english: "client", vietnamese: ["khách hàng"], pron: "/ˈklaɪənt/" },
+                    { english: "debt", vietnamese: ["nợ", "khoản "], pron: "/det/" },
+                    { english: "outstanding", vietnamese: ["chưa thanh toán", "nổi bật"], pron: "/ˌaʊtˈstændɪŋ/" },
+                    { english: "profitably", vietnamese: ["có lợi nhuận"], pron: "/ˈprɒfɪtəbli/" },
+                    { english: "reconcile", vietnamese: ["đối chiếu sổ sách"], pron: "/ˈrekənsaɪl/" },
+                    { english: "turnover", vietnamese: ["doanh thu", "doanh số"], pron: "/ˈtɜːnˌoʊvər/" }
+                ]
+            },
+            {
+                value: "investment",
+                label: "Investment (Đầu tư)",
+                words: [
+                    { english: "aggressively", vietnamese: ["mạnh tay (trong đầu tư)", "quyết liệt"], pron: "/əˈɡresɪvli/" },
+                    { english: "attitude", vietnamese: ["quan điểm đầu tư", "thái độ"], pron: "/ˈætɪtjuːd/" },
+                    { english: "commit", vietnamese: ["cam kết (vốn)", "đầu tư vào"], pron: "/kəˈmɪt/" },
+                    { english: "conservative", vietnamese: ["thận trọng (ít rủi ro)"], pron: "/kənˈsɜːrvətɪv/" },
+                    { english: "fund", vietnamese: ["quỹ đầu tư", "cấp vốn"], pron: "/fʌnd/" },
+                    { english: "invest", vietnamese: ["đầu tư"], pron: "/ɪnˈvest/" },
+                    { english: "long term", vietnamese: ["dài hạn"], pron: "/ˌlɔːŋ ˈtɜːrm/" },
+                    { english: "portfolio", vietnamese: ["danh mục đầu tư"], pron: "/pɔːrtˈfoʊlioʊ/" },
+                    { english: "pull out", vietnamese: ["rút vốn", "thoái vốn"], pron: "/pʊl aʊt/" },
+                    { english: "resource", vietnamese: ["nguồn lực (tài chính)"], pron: "/rɪˈsɔːrs/" },
+                    { english: "return", vietnamese: ["lợi nhuận", "tỷ suất sinh lời"], pron: "/rɪˈtɜːrn/" },
+                    { english: "wisely", vietnamese: ["một cách khôn ngoan"], pron: "/ˈwaɪzli/" }
+                ]
+            }
         ];
+
+        const words = topicDefinitions
+            .filter(topic => topic.value !== "all")
+            .flatMap(topic => topic.words);
 
         let shuffled = [];
         let index = 0;
@@ -329,9 +338,9 @@
         const topicInfo = document.getElementById('topicInfo');
 
         function getTopicWords(value) {
+            if (value === 'all') return [...words];
             const def = topicDefinitions.find(item => item.value === value);
-            if (!def || value === 'all') return [...words];
-            return words.slice(def.start, def.start + def.count);
+            return def && Array.isArray(def.words) ? [...def.words] : [];
         }
 
         function populateTopicSelect() {
