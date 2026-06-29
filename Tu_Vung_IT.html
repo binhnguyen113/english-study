@@ -257,78 +257,95 @@
     </div>
 
     <script>
-        const words = [
-            // //================================== INFORMATION TECHNOLOGY (CỘNG NGHỆ THÔNG TIN) ================================
-
-            // nhóm 1: nền tảng CNTT – dễ hiểu, hay gặp
-            { english: "algorithm", vietnamese: ["thuật toán"], pron: "/ˈælɡərɪðəm/" },
-            { english: "application", vietnamese: ["ứng dụng"], pron: "/ˌæplɪˈkeɪʃən/" },
-            { english: "data", vietnamese: ["dữ liệu"], pron: "/ˈdeɪtə/" },
-            { english: "database", vietnamese: ["cơ sở dữ liệu"], pron: "/ˈdeɪtəˌbeɪs/" },
-            { english: "digital", vietnamese: ["kỹ thuật số"], pron: "/ˈdɪdʒɪtəl/" },
-            { english: "file", vietnamese: ["tệp tin"], pron: "/faɪl/" },
-            { english: "interface", vietnamese: ["giao diện"], pron: "/ˈɪntərfeɪs/" },
-
-            // nhóm 2: mạng – các từ dùng khi làm web, server
-            { english: "bandwidth", vietnamese: ["băng thông"], pron: "/ˈbændwɪθ/" },
-            { english: "browser", vietnamese: ["trình duyệt"], pron: "/ˈbraʊzər/" },
-            { english: "cloud computing", vietnamese: ["điện toán đám mây"], pron: "/klaʊd kəmˈpjuːtɪŋ/" },
-            { english: ["domain name system", " DNS"], vietnamese: ["hệ thống phân giải tên miền"], pron: "/ˌdiː.enˈes/" },
-            { english: "gateway", vietnamese: ["cổng mạng"], pron: "/ˈɡeɪtweɪ/" },
-            { english: "network", vietnamese: ["mạng"], pron: "/ˈnetwɜːrk/" },
-            { english: "router", vietnamese: ["bộ định tuyến"], pron: "/ˈruːtər/" },
-
-            // nhóm 3: bảo mật – rất quan trọng
-            { english: "authentication", vietnamese: ["xác thực"], pron: "/ɔːˌθentɪˈkeɪʃən/" },
-            { english: "cybersecurity", vietnamese: ["an ninh mạng"], pron: "/ˌsaɪbərsɪˈkjʊrəti/" },
-            { english: "encryption", vietnamese: ["mã hóa"], pron: "/ɪnˈkrɪpʃən/" },
-            { english: "firewall", vietnamese: ["tường lửa"], pron: "/ˈfaɪərwɔːl/" },
-            { english: "hacker", vietnamese: ["tin tặc"], pron: "/ˈhækər/" },
-            { english: "malware", vietnamese: ["phần mềm độc hại"], pron: "/ˈmælˌwɛər/" },
-            { english: "vulnerability", vietnamese: ["lỗ hổng bảo mật"], pron: "/ˌvʌlnərəˈbɪləti/" },
-
-            // nhóm 4: phần cứng – liên quan thiết bị
-            { english: "biometrics", vietnamese: ["sinh trắc học"], pron: "/ˌbaɪoʊˈmetrɪks/" },
-            { english: "cursor", vietnamese: ["con trỏ"], pron: "/ˈkɜːrsər/" },
-            { english: "firmware", vietnamese: ["phần mềm cố định"], pron: "/ˈfɜːrmweər/" },
-            { english: "flash drive", vietnamese: ["USB"], pron: "/flæʃ draɪv/" },
-            { english: "frequency", vietnamese: ["tần số"], pron: "/ˈfriːkwənsi/" },
-            { english: ["GPS", "global positioning system"], vietnamese: ["hệ thống định vị"], pron: "/ˌdʒiː.piːˈes/" },
-            { english: "hardware", vietnamese: ["phần cứng"], pron: "/ˈhɑːrdweər/" },
-
-            // nhóm 5: từ chuyên môn lập trình – hay gặp khi code
-            { english: ["artificial intelligence", "AI"], vietnamese: ["trí tuệ nhân tạo"], pron: "/ˌɑːrtɪˈfɪʃəl ɪnˈtelɪdʒəns/" },
-            { english: "debugging", vietnamese: ["gỡ lỗi"], pron: "/diːˈbʌɡɪŋ/" },
-            { english: "e-commerce", vietnamese: ["thương mại điện tử"], pron: "/ˈiːˌkɑːmɜːrs/" },
-            { english: "graphic design", vietnamese: ["thiết kế đồ họa"], pron: "/ˈɡræfɪk dɪˈzaɪn/" },
-            { english: "hosting", vietnamese: ["lưu trữ web"], pron: "/ˈhoʊstɪŋ/" },
-            { english: "operating system", vietnamese: ["hệ điều hành"], pron: "/ˈɑːpəreɪtɪŋ ˈsɪstəm/" },
-            { english: "virtualization", vietnamese: ["ảo hóa"], pron: "/ˌvɜːrtʃuələˈzeɪʃən/" },
-
-
-            // nhóm 6: nâng cao – nên học sau
-            { english: "backup", vietnamese: ["sao lưu"], pron: "/ˈbækʌp/" },
-            { english: "cybersecurity", vietnamese: ["an ninh mạng"], pron: "/ˌsaɪbərsɪˈkjʊrəti/" },
-            { english: "multimedia", vietnamese: ["đa phương tiện"], pron: "/ˌmʌltiˈmiːdiə/" },
-            { english: "notification", vietnamese: ["thông báo"], pron: "/ˌnoʊtɪfɪˈkeɪʃən/" },
-            { english: "novice", vietnamese: ["người mới"], pron: "/ˈnɑːvɪs/" },
-            { english: "outsource", vietnamese: ["thuê ngoài"], pron: "/ˈaʊtsɔːrs/" },
-            { english: "patch", vietnamese: ["bản vá"], pron: "/pætʃ/" },
-            { english: "protocol", vietnamese: ["giao thức"], pron: "/ˈproʊtəkɔːl/" },
-            { english: "query", vietnamese: ["truy vấn"], pron: "/ˈkwɪəri/" },
-            { english: "recovery", vietnamese: ["khôi phục"], pron: "/rɪˈkʌvəri/" },
-            { english: "troubleshoot", vietnamese: ["khắc phục sự cố"], pron: "/ˈtrʌblˌʃuːt/" },
-
-        ];
         const topicDefinitions = [
-            { value: "all", label: "Ôn tất cả", start: 0, count: words.length },
-            { value: "foundation", label: "Nền tảng CNTT", start: 0, count: 7 },
-            { value: "network", label: "Mạng", start: 7, count: 7 },
-            { value: "security", label: "Bảo mật", start: 14, count: 7 },
-            { value: "hardware", label: "Phần cứng", start: 21, count: 7 },
-            { value: "programming", label: "Lập trình", start: 28, count: 7 },
-            { value: "advanced", label: "Nâng cao", start: 35, count: 11 }
+            { value: "all", label: "Ôn tất cả", words: [] },
+            {
+                value: "foundation",
+                label: "Nền tảng CNTT",
+                words: [
+                    { english: "algorithm", vietnamese: ["thuật toán"], pron: "/ˈælɡərɪðəm/" },
+                    { english: "application", vietnamese: ["ứng dụng"], pron: "/ˌæplɪˈkeɪʃən/" },
+                    { english: "data", vietnamese: ["dữ liệu"], pron: "/ˈdeɪtə/" },
+                    { english: "database", vietnamese: ["cơ sở dữ liệu"], pron: "/ˈdeɪtəˌbeɪs/" },
+                    { english: "digital", vietnamese: ["kỹ thuật số"], pron: "/ˈdɪdʒɪtəl/" },
+                    { english: "file", vietnamese: ["tệp tin"], pron: "/faɪl/" },
+                    { english: "interface", vietnamese: ["giao diện"], pron: "/ˈɪntərfeɪs/" }
+                ]
+            },
+            {
+                value: "network",
+                label: "Mạng",
+                words: [
+                    { english: "bandwidth", vietnamese: ["băng thông"], pron: "/ˈbændwɪθ/" },
+                    { english: "browser", vietnamese: ["trình duyệt"], pron: "/ˈbraʊzər/" },
+                    { english: "cloud computing", vietnamese: ["điện toán đám mây"], pron: "/klaʊd kəmˈpjuːtɪŋ/" },
+                    { english: ["domain name system", " DNS"], vietnamese: ["hệ thống phân giải tên miền"], pron: "/ˌdiː.enˈes/" },
+                    { english: "gateway", vietnamese: ["cổng mạng"], pron: "/ˈɡeɪtweɪ/" },
+                    { english: "network", vietnamese: ["mạng"], pron: "/ˈnetwɜːrk/" },
+                    { english: "router", vietnamese: ["bộ định tuyến"], pron: "/ˈruːtər/" }
+                ]
+            },
+            {
+                value: "security",
+                label: "Bảo mật",
+                words: [
+                    { english: "authentication", vietnamese: ["xác thực"], pron: "/ɔːˌθentɪˈkeɪʃən/" },
+                    { english: "cybersecurity", vietnamese: ["an ninh mạng"], pron: "/ˌsaɪbərsɪˈkjʊrəti/" },
+                    { english: "encryption", vietnamese: ["mã hóa"], pron: "/ɪnˈkrɪpʃən/" },
+                    { english: "firewall", vietnamese: ["tường lửa"], pron: "/ˈfaɪərwɔːl/" },
+                    { english: "hacker", vietnamese: ["tin tặc"], pron: "/ˈhækər/" },
+                    { english: "malware", vietnamese: ["phần mềm độc hại"], pron: "/ˈmælˌwɛər/" },
+                    { english: "vulnerability", vietnamese: ["lỗ hổng bảo mật"], pron: "/ˌvʌlnərəˈbɪləti/" }
+                ]
+            },
+            {
+                value: "hardware",
+                label: "Phần cứng",
+                words: [
+                    { english: "biometrics", vietnamese: ["sinh trắc học"], pron: "/ˌbaɪoʊˈmetrɪks/" },
+                    { english: "cursor", vietnamese: ["con trỏ"], pron: "/ˈkɜːrsər/" },
+                    { english: "firmware", vietnamese: ["phần mềm cố định"], pron: "/ˈfɜːrmweər/" },
+                    { english: "flash drive", vietnamese: ["USB"], pron: "/flæʃ draɪv/" },
+                    { english: "frequency", vietnamese: ["tần số"], pron: "/ˈfriːkwənsi/" },
+                    { english: ["GPS", "global positioning system"], vietnamese: ["hệ thống định vị"], pron: "/ˌdʒiː.piːˈes/" },
+                    { english: "hardware", vietnamese: ["phần cứng"], pron: "/ˈhɑːrdweər/" }
+                ]
+            },
+            {
+                value: "programming",
+                label: "Lập trình",
+                words: [
+                    { english: ["artificial intelligence", "AI"], vietnamese: ["trí tuệ nhân tạo"], pron: "/ˌɑːrtɪˈfɪʃəl ɪnˈtelɪdʒəns/" },
+                    { english: "debugging", vietnamese: ["gỡ lỗi"], pron: "/diːˈbʌɡɪŋ/" },
+                    { english: "e-commerce", vietnamese: ["thương mại điện tử"], pron: "/ˈiːˌkɑːmɜːrs/" },
+                    { english: "graphic design", vietnamese: ["thiết kế đồ họa"], pron: "/ˈɡræfɪk dɪˈzaɪn/" },
+                    { english: "hosting", vietnamese: ["lưu trữ web"], pron: "/ˈhoʊstɪŋ/" },
+                    { english: "operating system", vietnamese: ["hệ điều hành"], pron: "/ˈɑːpəreɪtɪŋ ˈsɪstəm/" },
+                    { english: "virtualization", vietnamese: ["ảo hóa"], pron: "/ˌvɜːrtʃuələˈzeɪʃən/" }
+                ]
+            },
+            {
+                value: "advanced",
+                label: "Nâng cao",
+                words: [
+                    { english: "backup", vietnamese: ["sao lưu"], pron: "/ˈbækʌp/" },
+                    { english: "cybersecurity", vietnamese: ["an ninh mạng"], pron: "/ˌsaɪbərsɪˈkjʊrəti/" },
+                    { english: "multimedia", vietnamese: ["đa phương tiện"], pron: "/ˌmʌltiˈmiːdiə/" },
+                    { english: "notification", vietnamese: ["thông báo"], pron: "/ˌnoʊtɪfɪˈkeɪʃən/" },
+                    { english: "novice", vietnamese: ["người mới"], pron: "/ˈnɑːvɪs/" },
+                    { english: "outsource", vietnamese: ["thuê ngoài"], pron: "/ˈaʊtsɔːrs/" },
+                    { english: "patch", vietnamese: ["bản vá"], pron: "/pætʃ/" },
+                    { english: "protocol", vietnamese: ["giao thức"], pron: "/ˈproʊtəkɔːl/" },
+                    { english: "query", vietnamese: ["truy vấn"], pron: "/ˈkwɪəri/" },
+                    { english: "recovery", vietnamese: ["khôi phục"], pron: "/rɪˈkʌvəri/" },
+                    { english: "troubleshoot", vietnamese: ["khắc phục sự cố"], pron: "/ˈtrʌblˌʃuːt/" }
+                ]
+            }
         ];
+
+        const words = topicDefinitions
+            .filter(topic => topic.value !== "all")
+            .flatMap(topic => topic.words);
 
         let shuffled = [];
         let index = 0;
@@ -349,9 +366,9 @@
         const topicInfo = document.getElementById('topicInfo');
 
         function getTopicWords(value) {
+            if (value === 'all') return [...words];
             const def = topicDefinitions.find(item => item.value === value);
-            if (!def || value === 'all') return [...words];
-            return words.slice(def.start, def.start + def.count);
+            return def && Array.isArray(def.words) ? [...def.words] : [];
         }
 
         function populateTopicSelect() {
