@@ -257,177 +257,215 @@
     </div>
 
     <script>
-        const words = [
-            // ================================== 100 TỪ PHỔ BIẾN TRONG TIẾNG ANH ==================================
-
-            // ===== NHÓM MẠO TỪ (Articles) =====
-            { english: "a", vietnamese: ["một (dùng trước danh từ số ít)"], pron: "/ə/" },
-            { english: "an", vietnamese: ["một (dùng trước nguyên âm)"], pron: "/æn/" },
-            { english: "the", vietnamese: ["cái, người, vật đã xác định"], pron: "/ðə/, /ðiː/" },
-
-            // ===== NHÓM ĐẠI TỪ (Pronouns) =====
-            { english: "I", vietnamese: ["tôi"], pron: "/aɪ/" },
-            { english: "you", vietnamese: ["bạn"], pron: "/juː/" },
-            { english: "he", vietnamese: ["anh ấy"], pron: "/hiː/" },
-            { english: "she", vietnamese: ["cô ấy"], pron: "/ʃiː/" },
-            { english: "it", vietnamese: ["nó"], pron: "/ɪt/" },
-            { english: "we", vietnamese: ["chúng ta"], pron: "/wiː/" },
-            { english: "they", vietnamese: ["họ"], pron: "/ðeɪ/" },
-            { english: "my", vietnamese: ["của tôi"], pron: "/maɪ/" },
-            { english: "his", vietnamese: ["của anh ấy"], pron: "/hɪz/" },
-            { english: "her", vietnamese: ["của cô ấy"], pron: "/hɜːr/" },
-            { english: "their", vietnamese: ["của họ"], pron: "/ðeə(r)/" },
-
-            // ===== NHÓM ĐỘNG TỪ TO BE =====
-            { english: "be", vietnamese: ["là", "thì", "ở"], pron: "/biː/" },
-            { english: "is", vietnamese: ["là", "ở (số ít)"], pron: "/ɪz/" },
-            { english: "are", vietnamese: ["là", "ở (số nhiều)"], pron: "/ɑːr/" },
-            { english: "was", vietnamese: ["đã là"], pron: "/wɒz/" },
-            { english: "were", vietnamese: ["đã là (số nhiều)"], pron: "/wɜːr/" },
-            { english: "become", vietnamese: ["trở thành"], pron: "/bɪˈkʌm/" },
-
-            // ===== NHÓM TỪ ĐỂ HỎI (WH Questions) =====
-            { english: "what", vietnamese: ["cái gì"], pron: "/wɒt/" },
-            { english: "who", vietnamese: ["ai"], pron: "/huː/" },
-            { english: "where", vietnamese: ["ở đâu"], pron: "/weə(r)/" },
-            { english: "when", vietnamese: ["khi nào"], pron: "/wen/" },
-            { english: "why", vietnamese: ["tại sao"], pron: "/waɪ/" },
-            { english: "how", vietnamese: ["như thế nào"], pron: "/haʊ/" },
-            { english: "which", vietnamese: ["cái nào"], pron: "/wɪtʃ/" },
-
-            // ===== NHÓM ĐỘNG TỪ CƠ BẢN =====
-            { english: "do", vietnamese: ["làm"], pron: "/duː/" },
-            { english: "go", vietnamese: ["đi"], pron: "/ɡəʊ/" },
-            { english: "come", vietnamese: ["đến"], pron: "/kʌm/" },
-            { english: "have", vietnamese: ["có"], pron: "/hæv/" },
-            { english: "take", vietnamese: ["lấy", "mang"], pron: "/teɪk/" },
-            { english: "make", vietnamese: ["làm", "tạo ra"], pron: "/meɪk/" },
-            { english: "give", vietnamese: ["cho"], pron: "/ɡɪv/" },
-            { english: "use", vietnamese: ["sử dụng"], pron: "/juːz/" },
-            { english: "find", vietnamese: ["tìm thấy"], pron: "/faɪnd/" },
-
-            // ===== NHÓM ĐỘNG TỪ GIAO TIẾP =====
-            { english: "say", vietnamese: ["nói"], pron: "/seɪ/" },
-            { english: "tell", vietnamese: ["kể", "nói"], pron: "/tel/" },
-            { english: "talk", vietnamese: ["nói chuyện"], pron: "/tɔːk/" },
-            { english: "call", vietnamese: ["gọi"], pron: "/kɔːl/" },
-            { english: "ask", vietnamese: ["hỏi"], pron: "/ɑːsk/" },
-            { english: "write", vietnamese: ["viết"], pron: "/raɪt/" },
-            { english: "read", vietnamese: ["đọc"], pron: "/riːd/" },
-
-            // ===== NHÓM ĐỘNG TỪ HÀNH ĐỘNG =====
-            { english: "run", vietnamese: ["chạy"], pron: "/rʌn/" },
-            { english: "play", vietnamese: ["chơi"], pron: "/pleɪ/" },
-            { english: "work", vietnamese: ["làm việc"], pron: "/wɜːk/" },
-            { english: "help", vietnamese: ["giúp"], pron: "/help/" },
-            { english: "bring", vietnamese: ["mang lại"], pron: "/brɪŋ/" },
-            { english: "leave", vietnamese: ["rời đi"], pron: "/liːv/" },
-            { english: "put", vietnamese: ["đặt", "để"], pron: "/pʊt/" },
-            { english: "keep", vietnamese: ["giữ"], pron: "/kiːp/" },
-            { english: "move", vietnamese: ["di chuyển"], pron: "/muːv/" },
-            { english: "start", vietnamese: ["bắt đầu"], pron: "/stɑːt/" },
-            { english: "begin", vietnamese: ["bắt đầu"], pron: "/bɪˈɡɪn/" },
-
-            // ===== NHÓM ĐỘNG TỪ SUY NGHĨ / CẢM XÚC =====
-            { english: "think", vietnamese: ["nghĩ"], pron: "/θɪŋk/" },
-            { english: "know", vietnamese: ["biết"], pron: "/nəʊ/" },
-            { english: "believe", vietnamese: ["tin"], pron: "/bɪˈliːv/" },
-            { english: "feel", vietnamese: ["cảm thấy"], pron: "/fiːl/" },
-            { english: "want", vietnamese: ["muốn"], pron: "/wɒnt/" },
-            { english: "need", vietnamese: ["cần"], pron: "/niːd/" },
-            { english: "mean", vietnamese: ["có nghĩa là"], pron: "/miːn/" },
-            { english: "seem", vietnamese: ["có vẻ"], pron: "/siːm/" },
-
-            // ===== NHÓM ĐỘNG TỪ KHÁC =====
-            { english: "see", vietnamese: ["nhìn thấy"], pron: "/siː/" },
-            { english: "look", vietnamese: ["nhìn"], pron: "/lʊk/" },
-            { english: "hear", vietnamese: ["nghe"], pron: "/hɪə(r)/" },
-            { english: "try", vietnamese: ["cố gắng"], pron: "/traɪ/" },
-            { english: "let", vietnamese: ["cho phép"], pron: "/let/" },
-            { english: "happen", vietnamese: ["xảy ra"], pron: "/ˈhæpən/" },
-            { english: "turn", vietnamese: ["xoay", "đến lượt"], pron: "/tɜːn/" },
-            { english: "show", vietnamese: ["cho thấy"], pron: "/ʃəʊ/" },
-            { english: "live", vietnamese: ["sống"], pron: "/lɪv/" },
-            { english: "sit", vietnamese: ["ngồi"], pron: "/sɪt/" },
-            { english: "stand", vietnamese: ["đứng"], pron: "/stænd/" },
-            { english: "lose", vietnamese: ["mất"], pron: "/luːz/" },
-            { english: "provide", vietnamese: ["cung cấp"], pron: "/prəˈvaɪd/" },
-
-            // ===== NHÓM GIỚI TỪ =====
-            { english: "in", vietnamese: ["trong"], pron: "/ɪn/" },
-            { english: "on", vietnamese: ["trên"], pron: "/ɒn/" },
-            { english: "at", vietnamese: ["tại"], pron: "/æt/" },
-            { english: "from", vietnamese: ["từ"], pron: "/frɒm/" },
-            { english: "to", vietnamese: ["đến"], pron: "/tuː/" },
-            { english: "with", vietnamese: ["với"], pron: "/wɪð/" },
-            { english: "by", vietnamese: ["bởi", "bằng"], pron: "/baɪ/" },
-            { english: "into", vietnamese: ["vào trong"], pron: "/ˈɪntəʊ/" },
-            { english: "over", vietnamese: ["qua", "trên"], pron: "/ˈəʊvə/" },
-
-            // ===== NHÓM TỪ NỐI =====
-            { english: "and", vietnamese: ["và"], pron: "/ænd/" },
-            { english: "but", vietnamese: ["nhưng"], pron: "/bʌt/" },
-            { english: "or", vietnamese: ["hoặc"], pron: "/ɔːr/" },
-            { english: "that", vietnamese: ["rằng", "cái mà"], pron: "/ðæt/" },
-            { english: "because", vietnamese: ["bởi vì"], pron: "/bɪˈkɒz/" },
-            { english: "so", vietnamese: ["vì vậy"], pron: "/səʊ/" },
-
-            // ===== NHÓM TRỢ ĐỘNG TỪ / TỪ CHỨC NĂNG =====
-            { english: "can", vietnamese: ["có thể"], pron: "/kæn/" },
-            { english: "will", vietnamese: ["sẽ"], pron: "/wɪl/" },
-            { english: "would", vietnamese: ["sẽ", "muốn (lịch sự)"], pron: "/wʊd/" },
-            { english: "there", vietnamese: ["có", "ở đó"], pron: "/ðeə(r)/" },
-            { english: "also", vietnamese: ["cũng"], pron: "/ˈɔːl.səʊ/" },
-
-            // ===== NHÓM DANH TỪ =====
-            { english: "time", vietnamese: ["thời gian"], pron: "/taɪm/" },
-            { english: "day", vietnamese: ["ngày"], pron: "/deɪ/" },
-            { english: "year", vietnamese: ["năm"], pron: "/jɪə(r)/" },
-            { english: "people", vietnamese: ["mọi người"], pron: "/ˈpiːpəl/" },
-            { english: "life", vietnamese: ["cuộc sống"], pron: "/laɪf/" },
-            { english: "idea", vietnamese: ["ý tưởng"], pron: "/aɪˈdɪə/" },
-            { english: "place", vietnamese: ["địa điểm"], pron: "/pleɪs/" },
-            { english: "future", vietnamese: ["tương lai"], pron: "/ˈfjuːtʃər/" },
-            { english: "company", vietnamese: ["công ty"], pron: "/ˈkʌmpəni/" },
-            { english: "pleasure", vietnamese: ["niềm vui"], pron: "/ˈpleʒə(r)/" },
-            { english: "way", vietnamese: ["cách thức"], pron: "/weɪ/" },
-            { english: "part", vietnamese: ["một phần"], pron: "/pɑːrt/" },
-
-            // ===== NHÓM TÍNH TỪ / LƯỢNG TỪ =====
-            { english: "all", vietnamese: ["tất cả"], pron: "/ɔːl/" },
-            { english: "many", vietnamese: ["nhiều"], pron: "/ˈmeni/" },
-            { english: "few", vietnamese: ["ít"], pron: "/fjuː/" },
-            { english: "last", vietnamese: ["cuối cùng", "trước đó"], pron: "/lɑːst/" },
-            { english: "long", vietnamese: ["dài"], pron: "/lɒŋ/" },
-            { english: "great", vietnamese: ["tuyệt vời", "lớn"], pron: "/ɡreɪt/" },
-            { english: "little", vietnamese: ["nhỏ"], pron: "/ˈlɪtl/" },
-            { english: "own", vietnamese: ["của riêng"], pron: "/əʊn/" },
-            { english: "other", vietnamese: ["khác"], pron: "/ˈʌðə(r)/" },
-            { english: "big", vietnamese: ["lớn"], pron: "/bɪɡ/" },
-            { english: "different", vietnamese: ["khác biệt"], pron: "/ˈdɪfrənt/" },
-            { english: "large", vietnamese: ["rộng lớn"], pron: "/lɑːdʒ/" },
-            { english: "early", vietnamese: ["sớm"], pron: "/ˈɜːli/" },
-            { english: "important", vietnamese: ["quan trọng"], pron: "/ɪmˈpɔːtənt/" },
-            { english: "same", vietnamese: ["giống nhau"], pron: "/seɪm/" },
-            { english: "able", vietnamese: ["có khả năng"], pron: "/ˈeɪbl/" },
-        ];
-
         const topicDefinitions = [
-            { value: "all", label: "Ôn tất cả", start: 0, count: words.length },
-            { value: "articles", label: "Mạo từ & đại từ", start: 0, count: 13 },
-            { value: "be", label: "Động từ be", start: 13, count: 6 },
-            { value: "questions", label: "Từ để hỏi", start: 19, count: 7 },
-            { value: "basicVerbs", label: "Động từ cơ bản", start: 26, count: 9 },
-            { value: "communication", label: "Động từ giao tiếp", start: 35, count: 7 },
-            { value: "actionVerbs", label: "Động từ hành động", start: 42, count: 11 },
-            { value: "thoughts", label: "Động từ suy nghĩ & cảm xúc", start: 53, count: 8 },
-            { value: "otherVerbs", label: "Động từ khác", start: 61, count: 13 },
-            { value: "prepositions", label: "Giới từ", start: 74, count: 9 },
-            { value: "conjunctions", label: "Từ nối", start: 83, count: 6 },
-            { value: "functionWords", label: "Trợ động từ & từ chức năng", start: 89, count: 5 },
-            { value: "nouns", label: "Danh từ cơ bản", start: 94, count: 12 },
-            { value: "adjectives", label: "Tính từ / lượng từ", start: 106, count: 16 }
+            { value: "all", label: "Ôn tất cả", words: [] },
+            {
+                value: "articles",
+                label: "Mạo từ, đại từ & sở hữu", // Đổi label cho đúng nghĩa rộng của nhóm
+                words: [
+                    { english: "a", vietnamese: ["một (dùng trước danh từ số ít)"], pron: "/ə/" },
+                    { english: "an", vietnamese: ["một (dùng trước nguyên âm)"], pron: "/æn/" },
+                    { english: "the", vietnamese: ["cái, người, vật đã xác định"], pron: "/ðə/, /ðiː/" },
+                    { english: "I", vietnamese: ["tôi"], pron: "/aɪ/" },
+                    { english: "you", vietnamese: ["bạn"], pron: "/juː/" },
+                    { english: "he", vietnamese: ["anh ấy"], pron: "/hiː/" },
+                    { english: "she", vietnamese: ["cô ấy"], pron: "/ʃiː/" },
+                    { english: "it", vietnamese: ["nó"], pron: "/ɪt/" },
+                    { english: "we", vietnamese: ["chúng ta"], pron: "/wiː/" },
+                    { english: "they", vietnamese: ["họ"], pron: "/ðeɪ/" },
+                    { english: "my", vietnamese: ["của tôi"], pron: "/maɪ/" },
+                    { english: "his", vietnamese: ["của anh ấy"], pron: "/hɪz/" },
+                    { english: "her", vietnamese: ["của cô ấy"], pron: "/hɜːr/" },
+                    { english: "their", vietnamese: ["của họ"], pron: "/ðeə(r)/" }
+                ]
+            },
+            {
+                value: "be",
+                label: "Động từ be",
+                words: [
+                    { english: "be", vietnamese: ["là", "thì", "ở"], pron: "/biː/" },
+                    { english: "is", vietnamese: ["là", "ở (số ít)"], pron: "/ɪz/" },
+                    { english: "are", vietnamese: ["là", "ở (số nhiều)"], pron: "/ɑːr/" },
+                    { english: "was", vietnamese: ["đã là"], pron: "/wɒz/" },
+                    { english: "were", vietnamese: ["đã là (số nhiều)"], pron: "/wɜːr/" }
+                    // "become" đã được chuyển đi vì không phải động từ 'be'
+                ]
+            },
+            {
+                value: "basicVerbs",
+                label: "Động từ cơ bản",
+                words: [
+                    { english: "do", vietnamese: ["làm"], pron: "/duː/" },
+                    { english: "go", vietnamese: ["đi"], pron: "/ɡəʊ/" },
+                    { english: "come", vietnamese: ["đến"], pron: "/kʌm/" },
+                    { english: "have", vietnamese: ["có"], pron: "/hæv/" },
+                    { english: "take", vietnamese: ["lấy", "mang"], pron: "/teɪk/" },
+                    { english: "make", vietnamese: ["làm", "tạo ra"], pron: "/meɪk/" },
+                    { english: "give", vietnamese: ["cho"], pron: "/ɡɪv/" },
+                    { english: "use", vietnamese: ["sử dụng"], pron: "/juːz/" },
+                    { english: "find", vietnamese: ["tìm thấy"], pron: "/faɪnd/" },
+                    { english: "become", vietnamese: ["trở thành"], pron: "/bɪˈkʌm/" } // Chuyển "become" về đây hợp lý hơn
+                ]
+            },
+            {
+                value: "actionVerbs",
+                label: "Động từ hành động",
+                words: [
+                    { english: "run", vietnamese: ["chạy"], pron: "/rʌn/" },
+                    { english: "play", vietnamese: ["chơi"], pron: "/pleɪ/" },
+                    { english: "work", vietnamese: ["làm việc"], pron: "/wɜːk/" },
+                    { english: "help", vietnamese: ["giúp"], pron: "/help/" },
+                    { english: "bring", vietnamese: ["mang lại"], pron: "/brɪŋ/" },
+                    { english: "leave", vietnamese: ["rời đi"], pron: "/liːv/" },
+                    { english: "put", vietnamese: ["đặt", "để"], pron: "/pʊt/" },
+                    { english: "keep", vietnamese: ["giữ"], pron: "/kiːp/" },
+                    { english: "move", vietnamese: ["di chuyển"], pron: "/muːv/" },
+                    { english: "start", vietnamese: ["bắt đầu"], pron: "/stɑːt/" },
+                    { english: "begin", vietnamese: ["bắt đầu"], pron: "/bɪˈɡɪn/" }
+                ]
+            },
+            {
+                value: "communication",
+                label: "Động từ giao tiếp",
+                words: [
+                    { english: "say", vietnamese: ["nói"], pron: "/seɪ/" },
+                    { english: "tell", vietnamese: ["kể", "nói"], pron: "/tel/" },
+                    { english: "talk", vietnamese: ["nói chuyện"], pron: "/tɔːk/" },
+                    { english: "call", vietnamese: ["gọi"], pron: "/kɔːl/" },
+                    { english: "ask", vietnamese: ["hỏi"], pron: "/ɑːsk/" },
+                    { english: "write", vietnamese: ["viết"], pron: "/raɪt/" },
+                    { english: "read", vietnamese: ["đọc"], pron: "/riːd/" }
+                ]
+            },
+            {
+                value: "thoughts",
+                label: "Động từ suy nghĩ & cảm xúc",
+                words: [
+                    { english: "think", vietnamese: ["nghĩ"], pron: "/θɪŋk/" },
+                    { english: "know", vietnamese: ["biết"], pron: "/nəʊ/" },
+                    { english: "believe", vietnamese: ["tin"], pron: "/bɪˈliːv/" },
+                    { english: "feel", vietnamese: ["cảm thấy"], pron: "/fiːl/" },
+                    { english: "want", vietnamese: ["muốn"], pron: "/wɒnt/" },
+                    { english: "need", vietnamese: ["cần"], pron: "/niːd/" },
+                    { english: "mean", vietnamese: ["có nghĩa là"], pron: "/miːn/" },
+                    { english: "seem", vietnamese: ["có vẻ"], pron: "/siːm/" }
+                ]
+            },
+            {
+                value: "otherVerbs",
+                label: "Động từ khác",
+                words: [
+                    { english: "see", vietnamese: ["nhìn thấy"], pron: "/siː/" },
+                    { english: "look", vietnamese: ["nhìn"], pron: "/lʊk/" },
+                    { english: "hear", vietnamese: ["nghe"], pron: "/hɪə(r)/" },
+                    { english: "try", vietnamese: ["cố gắng"], pron: "/traɪ/" },
+                    { english: "let", vietnamese: ["cho phép"], pron: "/let/" },
+                    { english: "happen", vietnamese: ["xảy ra"], pron: "/ˈhæpən/" },
+                    { english: "turn", vietnamese: ["xoay", "đến lượt"], pron: "/tɜːn/" },
+                    { english: "show", vietnamese: ["cho thấy"], pron: "/ʃəʊ/" },
+                    { english: "live", vietnamese: ["sống"], pron: "/lɪv/" },
+                    { english: "sit", vietnamese: ["ngồi"], pron: "/sɪt/" },
+                    { english: "stand", vietnamese: ["đứng"], pron: "/stænd/" },
+                    { english: "lose", vietnamese: ["mất"], pron: "/luːz/" },
+                    { english: "provide", vietnamese: ["cung cấp"], pron: "/prəˈvaɪd/" }
+                ]
+            },
+            {
+                value: "nouns",
+                label: "Danh từ cơ bản",
+                words: [
+                    { english: "time", vietnamese: ["thời gian"], pron: "/taɪm/" },
+                    { english: "day", vietnamese: ["ngày"], pron: "/deɪ/" },
+                    { english: "year", vietnamese: ["năm"], pron: "/jɪə(r)/" },
+                    { english: "people", vietnamese: ["mọi người"], pron: "/ˈpiːpəl/" },
+                    { english: "life", vietnamese: ["cuộc sống"], pron: "/laɪf/" },
+                    { english: "idea", vietnamese: ["ý tưởng"], pron: "/aɪˈdɪə/" },
+                    { english: "place", vietnamese: ["địa điểm"], pron: "/pleɪs/" },
+                    { english: "future", vietnamese: ["tương lai"], pron: "/ˈfjuːtʃər/" },
+                    { english: "company", vietnamese: ["công ty"], pron: "/ˈkʌmpəni/" },
+                    { english: "pleasure", vietnamese: ["niềm vui"], pron: "/ˈpleʒə(r)/" },
+                    { english: "way", vietnamese: ["cách thức"], pron: "/weɪ/" },
+                    { english: "part", vietnamese: ["một phần"], pron: "/pɑːrt/" }
+                ]
+            },
+            {
+                value: "adjectives",
+                label: "Tính từ / lượng từ",
+                words: [
+                    { english: "all", vietnamese: ["tất cả"], pron: "/ɔːl/" },
+                    { english: "many", vietnamese: ["nhiều"], pron: "/ˈmeni/" },
+                    { english: "few", vietnamese: ["ít"], pron: "/fjuː/" },
+                    { english: "last", vietnamese: ["cuối cùng", "trước đó"], pron: "/lɑːst/" },
+                    { english: "long", vietnamese: ["dài"], pron: "/lɒŋ/" },
+                    { english: "great", vietnamese: ["tuyệt vời", "lớn"], pron: "/ɡreɪt/" },
+                    { english: "little", vietnamese: ["nhỏ"], pron: "/ˈlɪtl/" },
+                    { english: "own", vietnamese: ["của riêng"], pron: "/əʊn/" },
+                    { english: "other", vietnamese: ["khác"], pron: "/ˈʌðə(r)/" },
+                    { english: "big", vietnamese: ["lớn"], pron: "/bɪɡ/" },
+                    { english: "different", vietnamese: ["khác biệt"], pron: "/ˈdɪfrənt/" },
+                    { english: "large", vietnamese: ["rộng lớn"], pron: "/lɑːdʒ/" },
+                    { english: "early", vietnamese: ["sớm"], pron: "/ˈɜːli/" },
+                    { english: "important", vietnamese: ["quan trọng"], pron: "/ɪmˈpɔːtənt/" },
+                    { english: "same", vietnamese: ["giống nhau"], pron: "/seɪm/" },
+                    { english: "able", vietnamese: ["có khả năng"], pron: "/ˈeɪbl/" }
+                ]
+            },
+            {
+                value: "prepositions",
+                label: "Giới từ",
+                words: [
+                    { english: "in", vietnamese: ["trong"], pron: "/ɪn/" },
+                    { english: "on", vietnamese: ["trên"], pron: "/ɒn/" },
+                    { english: "at", vietnamese: ["tại"], pron: "/æt/" },
+                    { english: "from", vietnamese: ["từ"], pron: "/frɒm/" },
+                    { english: "to", vietnamese: ["đến"], pron: "/tuː/" },
+                    { english: "with", vietnamese: ["với"], pron: "/wɪð/" },
+                    { english: "by", vietnamese: ["bởi", "bằng"], pron: "/baɪ/" },
+                    { english: "into", vietnamese: ["vào trong"], pron: "/ˈɪntəʊ/" },
+                    { english: "over", vietnamese: ["qua", "trên"], pron: "/ˈəʊvə/" }
+                ]
+            },
+            {
+                value: "conjunctions",
+                label: "Từ nối",
+                words: [
+                    { english: "and", vietnamese: ["và"], pron: "/ænd/" },
+                    { english: "but", vietnamese: ["nhưng"], pron: "/bʌt/" },
+                    { english: "or", vietnamese: ["hoặc"], pron: "/ɔːr/" },
+                    { english: "that", vietnamese: ["rằng", "cái mà"], pron: "/ðæt/" },
+                    { english: "because", vietnamese: ["bởi vì"], pron: "/bɪˈkɒz/" },
+                    { english: "so", vietnamese: ["vì vậy"], pron: "/səʊ/" }
+                ]
+            },
+            {
+                value: "functionWords",
+                label: "Trợ động từ & từ chức năng",
+                words: [
+                    { english: "can", vietnamese: ["có thể"], pron: "/kæn/" },
+                    { english: "will", vietnamese: ["sẽ"], pron: "/wɪl/" },
+                    { english: "would", vietnamese: ["sẽ", "muốn (lịch sự)"], pron: "/wʊd/" },
+                    { english: "there", vietnamese: ["có", "ở đó"], pron: "/ðeə(r)/" },
+                    { english: "also", vietnamese: ["cũng"], pron: "/ˈɔːl.səʊ/" }
+                ]
+            },
+            {
+                value: "questions",
+                label: "Từ để hỏi",
+                words: [
+                    { english: "what", vietnamese: ["cái gì"], pron: "/wɒt/" },
+                    { english: "who", vietnamese: ["ai"], pron: "/huː/" },
+                    { english: "where", vietnamese: ["ở đâu"], pron: "/weə(r)/" },
+                    { english: "when", vietnamese: ["khi nào"], pron: "/wen/" },
+                    { english: "why", vietnamese: ["tại sao"], pron: "/waɪ/" },
+                    { english: "how", vietnamese: ["như thế nào"], pron: "/haʊ/" },
+                    { english: "which", vietnamese: ["cái nào"], pron: "/wɪtʃ/" }
+                ]
+            }
         ];
+
+        const words = topicDefinitions
+            .filter(topic => topic.value !== "all")
+            .flatMap(topic => topic.words);
 
         let shuffled = [];
         let index = 0;
@@ -448,9 +486,9 @@
         const topicInfo = document.getElementById('topicInfo');
 
         function getTopicWords(value) {
+            if (value === 'all') return [...words];
             const def = topicDefinitions.find(item => item.value === value);
-            if (!def || value === 'all') return [...words];
-            return words.slice(def.start, def.start + def.count);
+            return def && Array.isArray(def.words) ? [...def.words] : [];
         }
 
         function populateTopicSelect() {
