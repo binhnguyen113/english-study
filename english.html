@@ -225,6 +225,7 @@
             <select id="modeSelect">
                 <option value="EtoV">Tiếng Anh → Tiếng Việt</option>
                 <option value="VtoE">Tiếng Việt → Tiếng Anh</option>
+                <option value="Mixed">Xen lẫn (Random)</option>
             </select>
         </div>
         <div class="controls">
@@ -286,29 +287,32 @@
                 value: "actionVerbs",
                 label: "Động từ hành động",
                 words: [
-                    { english: "run", vietnamese: ["chạy"], pron: "/rʌn/" },
-                    { english: "play", vietnamese: ["chơi"], pron: "/pleɪ/" },
-                    { english: "work", vietnamese: ["làm việc"], pron: "/wɜːk/" },
-                    { english: "help", vietnamese: ["giúp"], pron: "/help/" },
-                    { english: "bring", vietnamese: ["mang lại"], pron: "/brɪŋ/" },
-                    { english: "leave", vietnamese: ["rời đi"], pron: "/liːv/" },
-                    { english: "put", vietnamese: ["đặt", "để"], pron: "/pʊt/" },
-                    { english: "keep", vietnamese: ["giữ"], pron: "/kiːp/" },
-                    { english: "move", vietnamese: ["di chuyển"], pron: "/muːv/" },
-                    { english: "start", vietnamese: ["bắt đầu"], pron: "/stɑːt/" },
-                    { english: "begin", vietnamese: ["bắt đầu"], pron: "/bɪˈɡɪn/" },
-                    { english: "walk", vietnamese: ["đi bộ"], pron: "/wɔːk/" },
+                    // { english: "run", vietnamese: ["chạy"], pron: "/rʌn/" },
+                    // { english: "play", vietnamese: ["chơi"], pron: "/pleɪ/" },
+                    // { english: "work", vietnamese: ["làm việc"], pron: "/wɜːk/" },
+                    // { english: "help", vietnamese: ["giúp"], pron: "/help/" },
+                    // { english: "bring", vietnamese: ["mang lại"], pron: "/brɪŋ/" },
+                    // { english: "leave", vietnamese: ["rời đi"], pron: "/liːv/" },
+                    // { english: "put", vietnamese: ["đặt", "để"], pron: "/pʊt/" },
+                    // { english: "keep", vietnamese: ["giữ"], pron: "/kiːp/" },
+                    // { english: "move", vietnamese: ["di chuyển"], pron: "/muːv/" },
+                    // { english: "start", vietnamese: ["bắt đầu"], pron: "/stɑːt/" },
+                    // { english: "begin", vietnamese: ["bắt đầu"], pron: "/bɪˈɡɪn/" },
+                    // { english: "walk", vietnamese: ["đi bộ"], pron: "/wɔːk/" },
+                    // { english: "build", vietnamese: ["xây dựng"], pron: "/bɪld/" },
+                    // { english: "create", vietnamese: ["tạo ra"], pron: "/kriˈeɪt/" },
+                    // { english: "design", vietnamese: ["thiết kế"], pron: "/dɪˈzaɪn/" },
+                    // { english: "develop", vietnamese: ["phát triển"], pron: "/dɪˈvel.əp/" },
+                    // { english: "manage", vietnamese: ["quản lý"], pron: "/ˈmæn.ɪdʒ/" },
+                    // { english: "contribute", vietnamese: ["đóng góp"], pron: "/kənˈtrɪbjuːt/" },
+                    // { english: "negotiate", vietnamese: ["đàm phán"], pron: "/nɪˈɡoʊ.ʃi.eɪt/" },
+                    // { english: "persuade", vietnamese: ["thuyết phục"], pron: "/pərˈsweɪd/" },
                     { english: "jump", vietnamese: ["nhảy"], pron: "/dʒʌmp/" },
                     { english: "swim", vietnamese: ["bơi"], pron: "/swɪm/" },
                     { english: "climb", vietnamese: ["leo"], pron: "/klaɪm/" },
                     { english: "carry", vietnamese: ["mang", "đeo"], pron: "/ˈkæri/" },
                     { english: "lift", vietnamese: ["nhấc lên"], pron: "/lɪft/" },
-                    { english: "build", vietnamese: ["xây dựng"], pron: "/bɪld/" },
-                    { english: "create", vietnamese: ["tạo ra"], pron: "/kriˈeɪt/" },
-                    { english: "design", vietnamese: ["thiết kế"], pron: "/dɪˈzaɪn/" },
-                    { english: "develop", vietnamese: ["phát triển"], pron: "/dɪˈvel.əp/" },
                     { english: "improve", vietnamese: ["cải thiện"], pron: "/ɪmˈpruːv/" },
-                    { english: "manage", vietnamese: ["quản lý"], pron: "/ˈmæn.ɪdʒ/" },
                     { english: "organize", vietnamese: ["tổ chức"], pron: "/ˈɔːrɡənaɪz/" },
                     { english: "deliver", vietnamese: ["giao hàng", "trao đưa"], pron: "/dɪˈlɪvər/" },
                     { english: "repair", vietnamese: ["sửa chữa"], pron: "/rɪˈpeər/" },
@@ -318,9 +322,6 @@
                     { english: "explore", vietnamese: ["khảo sát", "thăm dò"], pron: "/ɪkˈsplɔːr/" },
                     { english: "observe", vietnamese: ["quan sát"], pron: "/əbˈzɜːrv/" },
                     { english: "analyze", vietnamese: ["phân tích"], pron: "/ˈænəlaɪz/" },
-                    { english: "negotiate", vietnamese: ["đàm phán"], pron: "/nɪˈɡoʊ.ʃi.eɪt/" },
-                    { english: "persuade", vietnamese: ["thuyết phục"], pron: "/pərˈsweɪd/" },
-                    { english: "contribute", vietnamese: ["đóng góp"], pron: "/kənˈtrɪbjuːt/" },
                     { english: "adapt", vietnamese: ["thích nghi"], pron: "/əˈdæpt/" }
                 ]
             },
@@ -328,7 +329,6 @@
                 value: "adverbialVerbs",
                 label: "Động từ trạng thái",
                 words: [
-                    { english: "be", vietnamese: ["là", "ở"], pron: "/biː/" },
                     { english: "seem", vietnamese: ["dường như"], pron: "/siːm/" },
                     { english: "appear", vietnamese: ["xuất hiện", "có vẻ"], pron: "/əˈpɪr/" },
                     { english: "feel", vietnamese: ["cảm thấy"], pron: "/fiːl/" },
@@ -341,45 +341,45 @@
                     { english: "depend", vietnamese: ["phụ thuộc"], pron: "/dɪˈpend/" },
                     { english: "matter", vietnamese: ["quan trọng"], pron: "/ˈmæt.ər/" },
                     { english: "concern", vietnamese: ["lo lắng", "liên quan"], pron: "/kənˈsɜːn/" },
-                    { english: "include", vietnamese: ["bao gồm"], pron: "/ɪnˈkluːd/" },
-                    { english: "involve", vietnamese: ["liên quan đến", "bao hàm"], pron: "/ɪnˈvɒlv/" },
-                    { english: "require", vietnamese: ["yêu cầu"], pron: "/rɪˈkwaɪər/" },
-                    { english: "deserve", vietnamese: ["xứng đáng"], pron: "/dɪˈzɜːrv/" },
-                    { english: "prefer", vietnamese: ["thích hơn"], pron: "/prɪˈfɜːr/" },
-                    { english: "know", vietnamese: ["biết"], pron: "/noʊ/" },
-                    { english: "understand", vietnamese: ["hiểu"], pron: "/ˌʌndərˈstænd/" },
-                    { english: "believe", vietnamese: ["tin"], pron: "/bɪˈliːv/" },
-                    { english: "remember", vietnamese: ["nhớ"], pron: "/rɪˈmem.bər/" },
-                    { english: "forget", vietnamese: ["quên"], pron: "/fərˈɡet/" },
-                    { english: "realize", vietnamese: ["nhận ra"], pron: "/ˈrɪəlaɪz/" },
-                    { english: "recognize", vietnamese: ["nhận ra", "công nhận"], pron: "/ˈrekəɡnaɪz/" },
-                    { english: "mean", vietnamese: ["có nghĩa là"], pron: "/miːn/" },
-                    { english: "want", vietnamese: ["muốn"], pron: "/wɒnt/" },
-                    { english: "need", vietnamese: ["cần"], pron: "/niːd/" },
-                    { english: "own", vietnamese: ["sở hữu"], pron: "/oʊn/" },
-                    { english: "possess", vietnamese: ["sở hữu", "chiếm hữu"], pron: "/pəˈzes/" },
-                    { english: "love", vietnamese: ["yêu"], pron: "/lʌv/" },
-                    { english: "hate", vietnamese: ["ghét"], pron: "/heɪt/" },
-                    { english: "like", vietnamese: ["thích"], pron: "/laɪk/" },
-                    { english: "enjoy", vietnamese: ["thưởng thức", "thích"], pron: "/ɪnˈdʒɔɪ/" },
-                    { english: "consist", vietnamese: ["bao gồm"], pron: "/kənˈsɪst/" },
-                    { english: "contain", vietnamese: ["chứa đựng"], pron: "/kənˈteɪn/" },
-                    { english: "exist", vietnamese: ["tồn tại"], pron: "/ɪɡˈzɪst/" },
-                    { english: "trust", vietnamese: ["tin tưởng"], pron: "/trʌst/" },
-                    { english: "doubt", vietnamese: ["nghi ngờ"], pron: "/daʊt/" },
-                    { english: "admire", vietnamese: ["ngưỡng mộ"], pron: "/ədˈmaɪər/" },
-                    { english: "regret", vietnamese: ["hối hận"], pron: "/rɪˈɡret/" },
-                    { english: "hope", vietnamese: ["hy vọng"], pron: "/hoʊp/" },
-                    { english: "fear", vietnamese: ["sợ"], pron: "/fɪr/" },
-                    { english: "worry", vietnamese: ["lo lắng"], pron: "/ˈwɜːri/" },
-                    { english: "expect", vietnamese: ["mong đợi"], pron: "/ɪkˈspekt/" },
-                    { english: "appreciate", vietnamese: ["đánh giá cao"], pron: "/əˈpriːʃieɪt/" },
-                    { english: "imagine", vietnamese: ["tưởng tượng"], pron: "/ɪˈmædʒɪn/" },
-                    { english: "suppose", vietnamese: ["cho rằng"], pron: "/səˈpoʊz/" },
-                    { english: "assume", vietnamese: ["giả định"], pron: "/əˈsuːm/" },
-                    { english: "notice", vietnamese: ["nhận thấy"], pron: "/ˈnoʊtɪs/" },
-                    { english: "care", vietnamese: ["quan tâm"], pron: "/kɛr/" },
-                    { english: "mind", vietnamese: ["phiền"], pron: "/maɪnd/" }
+                    // { english: "include", vietnamese: ["bao gồm"], pron: "/ɪnˈkluːd/" },
+                    // { english: "involve", vietnamese: ["liên quan đến", "bao hàm"], pron: "/ɪnˈvɒlv/" },
+                    // { english: "require", vietnamese: ["yêu cầu"], pron: "/rɪˈkwaɪər/" },
+                    // { english: "deserve", vietnamese: ["xứng đáng"], pron: "/dɪˈzɜːrv/" },
+                    // { english: "prefer", vietnamese: ["thích hơn"], pron: "/prɪˈfɜːr/" },
+                    // { english: "know", vietnamese: ["biết"], pron: "/noʊ/" },
+                    // { english: "understand", vietnamese: ["hiểu"], pron: "/ˌʌndərˈstænd/" },
+                    // { english: "believe", vietnamese: ["tin"], pron: "/bɪˈliːv/" },
+                    // { english: "remember", vietnamese: ["nhớ"], pron: "/rɪˈmem.bər/" },
+                    // { english: "forget", vietnamese: ["quên"], pron: "/fərˈɡet/" },
+                    // { english: "realize", vietnamese: ["nhận ra"], pron: "/ˈrɪəlaɪz/" },
+                    // { english: "recognize", vietnamese: ["nhận ra", "công nhận"], pron: "/ˈrekəɡnaɪz/" },
+                    // { english: "mean", vietnamese: ["có nghĩa là"], pron: "/miːn/" },
+                    // { english: "want", vietnamese: ["muốn"], pron: "/wɒnt/" },
+                    // { english: "need", vietnamese: ["cần"], pron: "/niːd/" },
+                    // { english: "own", vietnamese: ["sở hữu"], pron: "/oʊn/" },
+                    // { english: "possess", vietnamese: ["sở hữu", "chiếm hữu"], pron: "/pəˈzes/" },
+                    // { english: "love", vietnamese: ["yêu"], pron: "/lʌv/" },
+                    // { english: "hate", vietnamese: ["ghét"], pron: "/heɪt/" },
+                    // { english: "like", vietnamese: ["thích"], pron: "/laɪk/" },
+                    // { english: "enjoy", vietnamese: ["thưởng thức", "thích"], pron: "/ɪnˈdʒɔɪ/" },
+                    // { english: "consist", vietnamese: ["bao gồm"], pron: "/kənˈsɪst/" },
+                    // { english: "contain", vietnamese: ["chứa đựng"], pron: "/kənˈteɪn/" },
+                    // { english: "exist", vietnamese: ["tồn tại"], pron: "/ɪɡˈzɪst/" },
+                    // { english: "trust", vietnamese: ["tin tưởng"], pron: "/trʌst/" },
+                    // { english: "doubt", vietnamese: ["nghi ngờ"], pron: "/daʊt/" },
+                    // { english: "admire", vietnamese: ["ngưỡng mộ"], pron: "/ədˈmaɪər/" },
+                    // { english: "regret", vietnamese: ["hối hận"], pron: "/rɪˈɡret/" },
+                    // { english: "hope", vietnamese: ["hy vọng"], pron: "/hoʊp/" },
+                    // { english: "fear", vietnamese: ["sợ"], pron: "/fɪr/" },
+                    // { english: "worry", vietnamese: ["lo lắng"], pron: "/ˈwɜːri/" },
+                    // { english: "expect", vietnamese: ["mong đợi"], pron: "/ɪkˈspekt/" },
+                    // { english: "appreciate", vietnamese: ["đánh giá cao"], pron: "/əˈpriːʃieɪt/" },
+                    // { english: "imagine", vietnamese: ["tưởng tượng"], pron: "/ɪˈmædʒɪn/" },
+                    // { english: "suppose", vietnamese: ["cho rằng"], pron: "/səˈpoʊz/" },
+                    // { english: "assume", vietnamese: ["giả định"], pron: "/əˈsuːm/" },
+                    // { english: "notice", vietnamese: ["nhận thấy"], pron: "/ˈnoʊtɪs/" },
+                    // { english: "care", vietnamese: ["quan tâm"], pron: "/kɛr/" },
+                    // { english: "mind", vietnamese: ["phiền"], pron: "/maɪnd/" }
                 ]
             },
             {
@@ -499,7 +499,6 @@
         const modeSelect = document.getElementById('modeSelect');
         const topicSelect = document.getElementById('topicSelect');
         const topicInfo = document.getElementById('topicInfo');
-        const pronunciationEl = document.getElementById('pronunciation');
 
         function getTopicWords(value) {
             if (value === 'all') return [...words];
@@ -636,7 +635,12 @@
                 return;
             }
 
-            mode = document.getElementById('modeSelect').value;
+            const sel = document.getElementById('modeSelect').value;
+            if (sel === 'Mixed') {
+                mode = Math.random() > 0.5 ? "EtoV" : "VtoE";
+            } else {
+                mode = sel; // 'EtoV' or 'VtoE'
+            }
             const w = arr[index];
             input.value = "";
             resultDiv.textContent = "";
@@ -645,17 +649,16 @@
             if (mode === "EtoV") {
                 questionType.textContent = "Dịch sang tiếng Việt:";
                 wordDisplay.textContent = w.english;
-                pronunciationEl.textContent = w.pron ? w.pron : '';
+                // show pronunciation if available
+                pronDiv.textContent = w.pron ? w.pron : '';
+                // autoplay if enabled
                 if (autoplayChk && autoplayChk.checked) {
                     setTimeout(() => { if (window.speechSynthesis) window.speechSynthesis.cancel(); speak(w.english); }, 220);
                 }
             } else {
                 questionType.textContent = "Dịch sang tiếng Anh:";
                 wordDisplay.textContent = Array.isArray(w.vietnamese) ? w.vietnamese.join(", ") : w.vietnamese;
-                pronunciationEl.textContent = w.pron ? w.pron : '';
-                if (autoplayChk && autoplayChk.checked) {
-                    setTimeout(() => { if (window.speechSynthesis) window.speechSynthesis.cancel(); speak(w.english); }, 220);
-                }
+                pronDiv.textContent = '';
             }
             // ...không còn ví dụ...
         }
